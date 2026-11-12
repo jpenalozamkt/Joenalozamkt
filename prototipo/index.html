@@ -2,276 +2,311 @@
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
 <style>
-/* Layout: app shell. Índigo rail on the left (top bar on phones), work canvas on paper to the right. */
+/* Layout: app shell. Riel oscuro a la izquierda (barra superior en teléfono) y lienzo de trabajo claro a la derecha.
+   Identidad Jorge Peñaloza MKT: negro grafito, acento cian, píldoras y radios amplios. */
 :root{
-  --ink:#141A33; --ink-2:#222A4D; --on-ink:#EEF0F7; --on-ink-muted:#A9B0CC;
-  --paper:#F6F7FA; --sheet:#FFFFFF; --sheet-2:#F0F2F7;
-  --signal:#E7A21A; --signal-soft:#FCF1D8; --signal-text:#8A5A00;
-  --text:#1C2238; --muted:#5E6680; --line:#DCE0EA;
-  --up:#23805A; --down:#B4473B; --blue:#3550C8; --violet:#6A4BC4;
-  --shadow:0 1px 2px rgba(20,26,51,.05),0 6px 20px rgba(20,26,51,.06);
-  --f-display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
-  --f-body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
-  --r:10px;
+  --night:#0E0F12; --night-2:#18191D; --night-3:#2B2D33; --on-night:#FFFFFF; --on-night-muted:#A6AAB3;
+  --paper:#F7F7F8; --sheet:#FFFFFF; --sheet-2:#EEEFF1;
+  --accent:#23BBEE; --accent-text:#0A82AE; --on-accent:#0B0C0E; --accent-soft:#E2F5FC;
+  --text:#0B0C0E; --muted:#4B4E57; --mist:#A6AAB3; --line:#E1E2E6;
+  --up:#1D8456; --down:#B4432F; --warn:#9A6A0B; --violet:#6748C2;
+  --shadow:0 18px 40px -22px rgba(11,12,14,.35);
+  --f-display:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --f-body:"Figtree","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --r-lg:24px; --r-md:16px; --r-sm:10px;
+  --ease:cubic-bezier(.16,1,.3,1);
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --ink:#0B0F1F; --ink-2:#1A2142; --on-ink:#EEF0F7; --on-ink-muted:#9AA2BD;
-  --paper:#10142A; --sheet:#171C36; --sheet-2:#1D2342;
-  --signal:#F2B33D; --signal-soft:#3A2E12; --signal-text:#F2C46A;
-  --text:#E6E9F4; --muted:#9AA2BD; --line:#2A3150;
-  --up:#4CC08C; --down:#E58276; --blue:#8EA2FF; --violet:#B39CFF;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark;}}
+  --night:#0B0C0E; --night-2:#18191D; --night-3:#2B2D33; --on-night:#FFFFFF; --on-night-muted:#A6AAB3;
+  --paper:#111215; --sheet:#18191D; --sheet-2:#1F2126;
+  --accent:#23BBEE; --accent-text:#5CCFF3; --on-accent:#0B0C0E; --accent-soft:#0F2E3A;
+  --text:#F2F3F5; --muted:#A6AAB3; --mist:#6B6F78; --line:#2B2D33;
+  --up:#4CC08C; --down:#E5806C; --warn:#E2B04A; --violet:#B39CFF;
+  --shadow:0 18px 40px -22px rgba(0,0,0,.7); color-scheme:dark;}}
 :root[data-theme="dark"]{
-  --ink:#0B0F1F; --ink-2:#1A2142; --on-ink:#EEF0F7; --on-ink-muted:#9AA2BD;
-  --paper:#10142A; --sheet:#171C36; --sheet-2:#1D2342;
-  --signal:#F2B33D; --signal-soft:#3A2E12; --signal-text:#F2C46A;
-  --text:#E6E9F4; --muted:#9AA2BD; --line:#2A3150;
-  --up:#4CC08C; --down:#E58276; --blue:#8EA2FF; --violet:#B39CFF;
-  --shadow:0 1px 2px rgba(0,0,0,.3),0 6px 20px rgba(0,0,0,.25); color-scheme:dark;}
+  --night:#0B0C0E; --night-2:#18191D; --night-3:#2B2D33; --on-night:#FFFFFF; --on-night-muted:#A6AAB3;
+  --paper:#111215; --sheet:#18191D; --sheet-2:#1F2126;
+  --accent:#23BBEE; --accent-text:#5CCFF3; --on-accent:#0B0C0E; --accent-soft:#0F2E3A;
+  --text:#F2F3F5; --muted:#A6AAB3; --mist:#6B6F78; --line:#2B2D33;
+  --up:#4CC08C; --down:#E5806C; --warn:#E2B04A; --violet:#B39CFF;
+  --shadow:0 18px 40px -22px rgba(0,0,0,.7); color-scheme:dark;}
 
 *{box-sizing:border-box}
 html,body{min-height:100%}
-body{background:var(--paper);color:var(--text);font-family:var(--f-body);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--ink)}
-h1,h2,h3,h4{font-family:var(--f-display);margin:0;text-wrap:balance;letter-spacing:-.01em}
+body{background:var(--paper);color:var(--text);font-family:var(--f-body);font-size:14.5px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--night)}
+::selection{background:var(--accent);color:var(--on-accent)}
+h1,h2,h3,h4{font-family:var(--f-display);margin:0;line-height:1.08;letter-spacing:-.03em;text-wrap:balance;font-weight:700}
+p{margin:0}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
-:focus-visible{outline:2px solid var(--signal);outline-offset:2px}
-.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .num{font-variant-numeric:tabular-nums}
 .muted{color:var(--muted)}
-.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.small{font-size:12.5px}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.tag{display:inline-flex;align-items:center;gap:12px;font-weight:600;font-size:13px;color:var(--muted)}
+.tag::before{content:"";flex:none;width:8px;height:8px;margin-left:4px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 24%,transparent)}
+.hl{display:inline-block;background:var(--accent);color:var(--on-accent);border-radius:99px;padding:0 .3em .06em;line-height:1.12;transform:rotate(-1.5deg)}
+
+/* ---------- Logo (provisional) ---------- */
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:16px;letter-spacing:-.02em;white-space:nowrap;color:var(--on-night)}
+.logo-mark{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--on-accent);font-size:13px;flex:none}
+.logo small{font-family:var(--f-body);font-weight:700;font-size:10.5px;letter-spacing:.12em;background:var(--accent);color:var(--on-accent);padding:3px 7px;border-radius:99px;margin-left:4px;vertical-align:2px}
+
+/* ---------- Botones ---------- */
+.btn{--bg:var(--sheet);--fg:var(--text);display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:99px;padding:8px 18px;min-height:40px;font-weight:700;font-size:13.5px;white-space:nowrap;transition:transform .3s var(--ease),box-shadow .3s var(--ease),border-color .2s}
+.btn:hover{border-color:var(--mist)}
+.btn-primary{--bg:var(--accent);--fg:var(--on-accent);border-color:transparent;padding:6px 6px 6px 18px}
+.btn-primary .dot{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--on-accent);color:var(--accent);transition:transform .4s var(--ease)}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 12px 26px -14px rgba(11,12,14,.55)}
+.btn-primary:hover .dot{transform:rotate(45deg)}
+.btn-dark{--bg:var(--night);--fg:var(--on-night);border-color:var(--night)}
+.btn-ok{--bg:var(--up);--fg:#fff;border-color:transparent}
+.btn-ghost{--bg:transparent;border-color:transparent}
+.btn-sm{min-height:32px;padding:4px 12px;font-size:12.5px}
+.btn[disabled]{opacity:.45;cursor:not-allowed;transform:none!important}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:99px;padding:2px 10px;font-size:12px;font-weight:700;white-space:nowrap;--c:var(--muted);color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent)}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:99px;padding:3px;background:var(--sheet);gap:2px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;border-radius:99px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--night);color:var(--on-night)}
+
+/* ---------- Formularios ---------- */
+.field{display:grid;gap:6px}
+.field label{font-size:12.5px;font-weight:700;color:var(--muted)}
+.input{width:100%;background:var(--sheet);border:1px solid var(--line);border-radius:var(--r-sm);padding:10px 12px;min-height:42px}
+.input:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 25%,transparent)}
+textarea.input{min-height:76px;resize:vertical}
+.error{color:var(--down);font-size:13px;min-height:1em}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.form-grid .full{grid-column:1/-1}
 
 /* ---------- Login ---------- */
-.login{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
-.login-brand{background:var(--ink);color:var(--on-ink);padding-block:48px;padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:40px;display:flex;flex-direction:column;justify-content:space-between;gap:40px}
-.login-brand h1{font-size:clamp(30px,4vw,46px);line-height:1.05;font-weight:800;max-width:14ch}
-.login-brand h1 em{font-style:normal;color:var(--signal)}
-.login-brand p{color:var(--on-ink-muted);max-width:44ch;font-size:15px}
+.login{min-height:100vh;display:grid;grid-template-columns:1.05fr 1fr}
+.login-brand{background:var(--night);color:var(--on-night);padding-block:44px;padding-left:max(40px,env(safe-area-inset-left,0px));padding-right:40px;display:flex;flex-direction:column;justify-content:space-between;gap:40px}
+.login-brand h1{font-size:clamp(34px,4.6vw,58px);font-weight:800;letter-spacing:-.04em;max-width:13ch}
+.login-brand p{color:var(--on-night-muted);max-width:46ch;font-size:16px}
+.login-brand .tag{color:var(--on-night-muted)}
 .login-points{display:grid;gap:10px;margin:0;padding:0;list-style:none}
-.login-points li{display:flex;gap:10px;align-items:baseline;color:var(--on-ink)}
-.login-points li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--signal);flex:none;transform:translateY(-1px)}
-.login-form-wrap{display:flex;align-items:center;justify-content:center;padding-block:40px;padding-left:24px;padding-right:max(24px,env(safe-area-inset-right,0px))}
-.login-form{width:100%;max-width:380px;display:grid;gap:16px}
-.login-form h2{font-size:26px}
-.field{display:grid;gap:6px}
-.field label{font-size:12px;font-weight:600;color:var(--muted)}
-.input{width:100%;background:var(--sheet);border:1px solid var(--line);border-radius:8px;padding:10px 12px;min-height:42px}
-.input:focus{border-color:var(--signal);outline:none;box-shadow:0 0 0 3px var(--signal-soft)}
-textarea.input{min-height:72px;resize:vertical}
-.error{color:var(--down);font-size:13px;min-height:1em}
-.demo-box{border:1px dashed var(--line);border-radius:var(--r);padding:14px;display:grid;gap:10px;background:var(--sheet)}
-.demo-row{display:flex;flex-wrap:wrap;gap:8px}
-
-/* ---------- Buttons, chips ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:8px 14px;min-height:38px;font-weight:600;font-size:13px;white-space:nowrap}
-.btn:hover{border-color:var(--muted)}
-.btn-primary{background:var(--ink);color:var(--on-ink);border-color:var(--ink)}
-:root[data-theme="dark"] .btn-primary{background:var(--signal);color:#141A33;border-color:var(--signal)}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .btn-primary{background:var(--signal);color:#141A33;border-color:var(--signal)}}
-.btn-signal{background:var(--signal);color:#141A33;border-color:var(--signal)}
-.btn-ok{background:var(--up);border-color:var(--up);color:#fff}
-.btn-ghost{background:transparent}
-.btn-sm{min-height:30px;padding:4px 10px;font-size:12px}
-.btn[disabled]{opacity:.5;cursor:not-allowed}
-.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:2px 10px;font-size:12px;font-weight:600;white-space:nowrap;--c:var(--muted);color:var(--c);background:color-mix(in srgb,var(--c) 13%,transparent)}
-.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c)}
-.chip.plain::before{display:none}
-.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;padding:3px;background:var(--sheet);gap:2px;flex-wrap:wrap}
-.seg button{border:0;background:transparent;border-radius:6px;padding:5px 12px;font-size:13px;font-weight:600;color:var(--muted)}
-.seg button[aria-pressed="true"]{background:var(--ink);color:var(--on-ink)}
+.login-points li{display:flex;gap:12px;align-items:baseline}
+.login-points li::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none;transform:translateY(-2px)}
+.login-side{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding-block:40px;padding-left:24px;padding-right:max(24px,env(safe-area-inset-right,0px))}
+.login-form{width:100%;max-width:420px;display:grid;gap:14px}
+.login-form h2{font-size:30px}
+.tour{width:100%;max-width:420px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--sheet);padding:16px;display:grid;gap:12px}
+.tour-row{display:grid;gap:8px}
+.tour-row b{font-size:13px}
+.tour-links{display:flex;flex-wrap:wrap;gap:6px}
+.tour-links button{border:1px solid var(--line);background:var(--paper);border-radius:99px;padding:3px 11px;font-size:12px;font-weight:600}
+.tour-links button:hover{border-color:var(--accent);color:var(--accent-text)}
 
 /* ---------- Shell ---------- */
-.shell{display:grid;grid-template-columns:232px minmax(0,1fr);min-height:100vh}
-.rail{background:var(--ink);color:var(--on-ink);position:sticky;top:env(safe-area-inset-top,0px);height:100vh;display:flex;flex-direction:column;gap:22px;padding-block:22px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:18px;overflow-y:auto}
-.brand{display:flex;gap:10px;align-items:center;color:var(--on-ink)}
-.brand svg{width:36px;height:36px;flex:none}
-.brand b{display:block;font-family:var(--f-display);font-size:13px;letter-spacing:.06em}
-.brand span{display:block;font-family:var(--f-mono);font-size:10px;color:var(--on-ink-muted);letter-spacing:.04em}
-.nav{display:grid;gap:2px}
-.nav button{display:flex;align-items:center;gap:10px;border:0;background:transparent;color:var(--on-ink-muted);text-align:left;padding:9px 10px;border-radius:8px;font-weight:600}
-.nav button:hover{background:var(--ink-2);color:var(--on-ink)}
-.nav button[aria-current="page"]{background:var(--ink-2);color:var(--on-ink);box-shadow:inset 3px 0 0 var(--signal)}
+.shell{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+.rail{background:var(--night);color:var(--on-night);position:sticky;top:env(safe-area-inset-top,0px);height:100vh;display:flex;flex-direction:column;gap:24px;padding-block:22px;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:18px;overflow-y:auto;border-right:1px solid var(--night-3)}
+.nav{display:grid;gap:3px}
+.nav button{display:flex;align-items:center;gap:11px;border:0;background:transparent;color:var(--on-night-muted);text-align:left;padding:9px 12px;border-radius:99px;font-weight:600}
+.nav button:hover{background:var(--night-2);color:var(--on-night)}
+.nav button[aria-current="page"]{background:var(--accent);color:var(--on-accent)}
 .nav svg{width:17px;height:17px;flex:none}
-.nav .badge{margin-left:auto;background:var(--signal);color:#141A33;font-size:11px;border-radius:999px;padding:0 7px;font-family:var(--f-mono)}
-.rail-foot{margin-top:auto;display:grid;gap:10px;border-top:1px solid var(--ink-2);padding-top:14px}
+.nav .badge{margin-left:auto;background:var(--accent);color:var(--on-accent);font-size:11px;font-weight:700;border-radius:99px;padding:0 7px}
+.nav button[aria-current="page"] .badge{background:var(--on-accent);color:var(--accent)}
+.rail-foot{margin-top:auto;display:grid;gap:10px;border-top:1px solid var(--night-3);padding-top:14px}
 .me{display:flex;gap:10px;align-items:center}
-.av{width:30px;height:30px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:700;font-family:var(--f-mono);background:var(--signal-soft);color:var(--signal-text);flex:none}
-.av.DI{background:color-mix(in srgb,var(--violet) 18%,transparent);color:var(--violet)}
-.av.CM{background:color-mix(in srgb,var(--blue) 18%,transparent);color:var(--blue)}
-.rail .av{width:32px;height:32px}
-.me div b{display:block;font-size:13px}
-.me div span{display:block;font-size:11px;color:var(--on-ink-muted)}
-.rail-foot .btn{background:transparent;color:var(--on-ink-muted);border-color:var(--ink-2)}
+.me-txt b{display:block;font-size:13px}
+.me-txt span{display:block;font-size:11.5px;color:var(--on-night-muted)}
+.rail-foot .btn{--bg:transparent;--fg:var(--on-night-muted);border-color:var(--night-3)}
+.av{width:30px;height:30px;border-radius:50%;display:inline-grid;place-items:center;font-size:11px;font-weight:800;background:var(--accent-soft);color:var(--accent-text);flex:none}
+.av.DI{background:color-mix(in srgb,var(--violet) 16%,transparent);color:var(--violet)}
+.av.CM{background:color-mix(in srgb,var(--up) 16%,transparent);color:var(--up)}
+.rail .av{background:var(--accent);color:var(--on-accent)}
 
-.main{min-width:0;padding-block:20px 60px;padding-left:28px;padding-right:max(28px,env(safe-area-inset-right,0px))}
-.topbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
-.client-pick{display:flex;align-items:center;gap:10px}
-.client-pick select{min-width:200px}
-.proto-note{font-size:12px;color:var(--signal-text);background:var(--signal-soft);border-radius:999px;padding:4px 12px;font-weight:600}
-.page-head{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:flex-end;justify-content:space-between;margin-bottom:18px}
-.page-head h1{font-size:clamp(22px,2.6vw,30px);font-weight:800}
-.page-head p{margin:4px 0 0;color:var(--muted);max-width:60ch}
-.actions{display:flex;flex-wrap:wrap;gap:8px}
+.main{min-width:0;padding-block:20px 64px;padding-left:30px;padding-right:max(30px,env(safe-area-inset-right,0px))}
+.topbar{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:22px}
+.picker{display:flex;align-items:center;gap:10px}
+.picker select{min-width:230px;border-radius:99px;padding-inline:16px}
+.topbar-end{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.viewas{display:flex;align-items:center;gap:8px;background:var(--accent-soft);border-radius:99px;padding:3px 3px 3px 14px}
+.viewas label{font-size:12px;font-weight:700;color:var(--accent-text);white-space:nowrap}
+.viewas select{border:0;background:var(--sheet);border-radius:99px;padding:5px 10px;font-size:12.5px;font-weight:600}
+.page-head{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:flex-end;justify-content:space-between;margin-bottom:20px}
+.page-head h1{font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-.04em;margin-top:8px}
+.page-head p{margin-top:6px;color:var(--muted);max-width:62ch}
+.actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 
-.panel{background:var(--sheet);border:1px solid var(--line);border-radius:12px}
-.panel-pad{padding:18px}
-.grid{display:grid;gap:14px}
-.g-2{grid-template-columns:repeat(2,minmax(0,1fr))}
-.g-3{grid-template-columns:repeat(3,minmax(0,1fr))}
-.section-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:26px 0 12px}
-.section-title h2{font-size:17px}
+.panel{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r-md)}
+.panel-pad{padding:18px 20px}
+.section-title{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:30px 0 12px;flex-wrap:wrap}
+.section-title h2{font-size:19px}
 
-/* KPI strip */
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden}
-.kpi{background:var(--sheet);padding:14px 16px;display:grid;gap:4px;align-content:start}
-.kpi.lead{background:var(--signal-soft)}
-.kpi .k-label{font-size:12px;color:var(--muted);font-weight:600}
-.kpi .k-val{font-family:var(--f-display);font-size:26px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
-.kpi .k-sub{font-family:var(--f-mono);font-size:11.5px;color:var(--muted)}
-.up{color:var(--up)} .down{color:var(--down)}
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(156px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.kpi{background:var(--sheet);padding:15px 17px;display:grid;gap:3px;align-content:start}
+.kpi.lead{background:var(--night);color:var(--on-night)}
+.kpi.lead .k-label,.kpi.lead .k-sub{color:var(--on-night-muted)}
+.kpi.lead .k-val{color:var(--accent)}
+.k-label{font-size:12.5px;color:var(--muted);font-weight:600}
+.k-val{font-family:var(--f-display);font-size:28px;font-weight:700;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1}
+.k-sub{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.up{color:var(--up)!important} .down{color:var(--down)!important}
 
-/* Client cards */
-.clients{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
-.ccard{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:12px;text-align:left;width:100%}
-.ccard:hover{border-color:var(--muted)}
+/* Clientes */
+.group-head{display:flex;align-items:center;gap:12px;margin:22px 0 10px;flex-wrap:wrap}
+.group-head h3{font-size:16px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.ccard{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;display:grid;gap:12px;text-align:left;width:100%;transition:border-color .2s,transform .3s var(--ease)}
+.ccard:hover{border-color:var(--accent);transform:translateY(-2px)}
 .ccard-head{display:flex;gap:10px;align-items:center}
-.logo-tile{width:36px;height:36px;border-radius:9px;background:var(--ink);color:var(--on-ink);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:13px;flex:none}
-.ccard h3{font-size:15px}
-.ccard .sector{font-size:12px;color:var(--muted)}
+.mono-tile{width:38px;height:38px;border-radius:50%;background:var(--night);color:var(--on-night);display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:13px;flex:none}
+.ccard h4{font-size:15px}
+.ccard .sub{font-size:12px;color:var(--muted)}
 .bar{height:6px;border-radius:99px;background:var(--sheet-2);overflow:hidden}
-.bar i{display:block;height:100%;background:var(--up);border-radius:99px}
-.ccard-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:11.5px;color:var(--muted)}
-.ccard-stats b{display:block;font-family:var(--f-display);font-size:17px;color:var(--text)}
-.ccard-stats .warn b{color:var(--signal-text)}
-
-.attn{display:grid;gap:0}
-.attn-row{display:flex;gap:12px;align-items:center;padding:11px 16px;border-top:1px solid var(--line);font-size:13px}
-.attn-row:first-child{border-top:0}
-.attn-row .grow{flex:1;min-width:0}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.cstats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;font-size:11.5px;color:var(--muted)}
+.cstats b{display:block;font-family:var(--f-display);font-size:18px;color:var(--text)}
+.cstats .warn b{color:var(--warn)}
+.list{display:grid}
+.list-row{display:flex;gap:12px;align-items:center;padding:12px 18px;border-top:1px solid var(--line);font-size:13.5px}
+.list-row:first-child{border-top:0}
+.list-row .grow{flex:1;min-width:0}
+.cell-sub{display:block;font-size:12px;color:var(--muted);font-weight:400}
 
 /* Sprint */
 .sprint-head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr);gap:14px;margin-bottom:16px}
-.sprint-goal h2{font-size:20px;margin:6px 0 8px}
-.ceremonies{display:grid;gap:8px;margin-top:12px;font-size:12.5px}
-.ceremonies div{display:flex;gap:8px;align-items:baseline}
-.ceremonies b{font-family:var(--f-mono);font-weight:500;color:var(--muted);min-width:76px;font-size:11.5px}
-.chart-title{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
-.chart-title h3{font-size:14px}
+.goal{background:var(--night);color:var(--on-night);border-color:var(--night)}
+.goal .eyebrow{color:var(--accent)}
+.goal h2{font-size:21px;margin:8px 0 12px}
+.cer{display:grid;gap:6px;font-size:13px}
+.cer div{display:flex;gap:10px}
+.cer b{color:var(--on-night-muted);font-weight:600;min-width:62px}
+.chart-title{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:6px}
+.chart-title h3{font-size:15px}
 svg.chart{width:100%;height:auto;display:block}
 .board-wrap{overflow-x:auto;padding-bottom:6px}
 .board{display:grid;grid-template-columns:repeat(4,minmax(230px,1fr));gap:12px;min-width:960px}
-.col{background:var(--sheet-2);border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:8px;min-height:240px;border:2px solid transparent;transition:border-color .15s}
-.col.over{border-color:var(--signal)}
-.col-head{display:flex;justify-content:space-between;align-items:center;padding:2px 4px 4px;font-weight:700;font-size:13px}
-.col-head .mono{font-size:11px;color:var(--muted);font-weight:400}
-.card{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:11px 12px;display:grid;gap:8px;cursor:grab;box-shadow:var(--shadow);text-align:left;width:100%}
-.card:active{cursor:grabbing}
+.col{background:var(--sheet-2);border-radius:var(--r-md);padding:10px;display:flex;flex-direction:column;gap:8px;min-height:220px;border:2px dashed transparent;transition:border-color .15s}
+.col.over{border-color:var(--accent)}
+.col-head{display:flex;justify-content:space-between;align-items:center;padding:4px 6px;font-weight:700;font-size:13.5px}
+.col-head span:last-child{font-size:11.5px;color:var(--muted);font-weight:600}
+.card{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:12px;display:grid;gap:8px;cursor:grab;text-align:left;width:100%}
+.card:hover{border-color:var(--mist)}
 .card.ro{cursor:default}
 .card.dragging{opacity:.4}
-.card h4{font-family:var(--f-body);font-size:13.5px;font-weight:600;line-height:1.35;letter-spacing:0}
+.card h4{font-family:var(--f-body);font-size:13.5px;font-weight:700;line-height:1.35;letter-spacing:0}
 .card-top,.card-foot{display:flex;align-items:center;gap:8px;justify-content:space-between}
 .card-foot{justify-content:flex-start}
 .card-foot .av{margin-left:auto;width:24px;height:24px;font-size:10px}
-.ctag{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
-.pts{font-family:var(--f-mono);font-size:11px;background:var(--sheet-2);border-radius:5px;padding:1px 6px;color:var(--muted)}
-.due{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
-.ttag{font-size:11px;border-radius:5px;padding:1px 7px;font-weight:600;--c:var(--muted);color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent)}
+.btag{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.pts{font-size:11px;font-weight:700;background:var(--sheet-2);border-radius:99px;padding:1px 8px;color:var(--muted)}
+.due{font-size:11.5px;color:var(--muted)}
+.ttag{font-size:11px;border-radius:99px;padding:1px 9px;font-weight:700;--c:var(--muted);color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent)}
 .retro{margin-top:16px}
-.retro summary{cursor:pointer;font-weight:700;padding:14px 18px;list-style:none;display:flex;justify-content:space-between}
+.retro summary{cursor:pointer;font-weight:700;padding:15px 20px;list-style:none;display:flex;justify-content:space-between;font-family:var(--f-display);font-size:16px}
 .retro summary::-webkit-details-marker{display:none}
-.retro-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:0 18px 18px}
-.retro-cols h4{font-size:13px;margin-bottom:6px}
-.retro-cols ul{margin:0;padding-left:18px;color:var(--muted);font-size:13px;display:grid;gap:4px}
+.retro-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;padding:0 20px 20px}
+.retro-cols h4{font-size:14px;margin-bottom:6px}
+.retro-cols ul{margin:0;padding-left:18px;color:var(--muted);font-size:13.5px;display:grid;gap:4px}
 
-/* Tables */
-.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--sheet)}
-table{border-collapse:collapse;width:100%;font-size:13px}
-th{font-family:var(--f-mono);font-size:10.5px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--sheet-2);white-space:nowrap}
+/* Mis tareas */
+.my-row{display:flex;gap:12px;align-items:center;padding:12px 18px;border-top:1px solid var(--line);flex-wrap:wrap}
+.my-row:first-child{border-top:0}
+.my-row .grow{flex:1;min-width:200px}
+.my-row h4{font-family:var(--f-body);font-size:14px;font-weight:700;letter-spacing:0}
+.late{color:var(--down);font-weight:700}
+
+/* Tablas */
+.table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r-md);background:var(--sheet)}
+table{border-collapse:collapse;width:100%;font-size:13.5px}
+th{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:11px 12px;border-bottom:1px solid var(--line);background:var(--sheet-2);white-space:nowrap}
 td{padding:11px 12px;border-bottom:1px solid var(--line);vertical-align:top}
 tr:last-child td{border-bottom:0}
 td.r,th.r{text-align:right}
+td.n{font-variant-numeric:tabular-nums}
 tr.row-click{cursor:pointer}
-tr.row-click:hover td{background:color-mix(in srgb,var(--signal) 5%,transparent)}
-tr.open td{background:color-mix(in srgb,var(--signal) 7%,transparent)}
-.hook{font-weight:600;min-width:240px;max-width:340px}
-.cell-sub{display:block;font-size:11.5px;color:var(--muted);font-weight:400}
+tr.row-click:hover td{background:color-mix(in srgb,var(--accent) 5%,transparent)}
+tr.open td{background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.hook{font-weight:700;min-width:240px;max-width:340px}
 .nowrap{white-space:nowrap}
 .detail td{background:var(--paper);padding:0}
 .detail-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:18px;padding:18px}
 .copy-block{display:grid;gap:4px;margin-bottom:14px}
-.copy-block p{margin:0;white-space:pre-line;max-width:70ch}
-.side-box{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;display:grid;gap:12px;align-content:start}
+.copy-block p{white-space:pre-line;max-width:70ch}
+.side-box{background:var(--sheet);border:1px solid var(--line);border-radius:var(--r-md);padding:16px;display:grid;gap:12px;align-content:start}
 .thread{display:grid;gap:8px}
-.msg{font-size:13px;border-left:2px solid var(--line);padding-left:10px}
-.msg b{font-size:12px}
-.msg .when{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);margin-left:6px}
+.msg{font-size:13.5px;border-left:3px solid var(--line);padding-left:10px}
+.msg b{font-size:12.5px}
+.msg .when{font-size:11px;color:var(--muted);margin-left:6px}
 .msg.internal{border-left-color:var(--violet)}
 .cal-wrap{overflow-x:auto}
-.cal{display:grid;grid-template-columns:repeat(7,minmax(96px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:700px}
-.cal .dow{background:var(--sheet-2);font-family:var(--f-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:8px}
-.cal .day{background:var(--sheet);min-height:96px;padding:6px;display:flex;flex-direction:column;gap:4px}
+.cal{display:grid;grid-template-columns:repeat(7,minmax(96px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden;min-width:700px}
+.cal .dow{background:var(--sheet-2);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);padding:8px}
+.cal .day{background:var(--sheet);min-height:98px;padding:6px;display:flex;flex-direction:column;gap:4px}
 .cal .day.out{background:var(--sheet-2)}
-.cal .day.today .dnum{background:var(--signal);color:#141A33;border-radius:5px;padding:0 5px}
-.dnum{font-family:var(--f-mono);font-size:11px;color:var(--muted);align-self:flex-start}
-.cal-chip{border:0;text-align:left;font-size:11px;border-radius:5px;padding:3px 6px;font-weight:600;--c:var(--muted);color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);line-height:1.25}
-.legend{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.dnum{font-size:11.5px;font-weight:600;color:var(--muted);align-self:flex-start}
+.cal .day.today .dnum{background:var(--accent);color:var(--on-accent);border-radius:99px;padding:0 7px}
+.cal-chip{border:0;text-align:left;font-size:11px;border-radius:8px;padding:3px 7px;font-weight:700;--c:var(--muted);color:var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);line-height:1.25}
+.legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
 
-/* Report */
-.report{max-width:880px}
-.rep-band{background:var(--ink);color:var(--on-ink);border-radius:14px 14px 0 0;padding:22px 24px 26px;display:grid;gap:14px}
-.rep-band .brand span{color:var(--on-ink-muted)}
-.rep-band .eyebrow{color:var(--signal)}
-.rep-band h2{font-size:clamp(24px,3vw,32px);font-weight:800;line-height:1.1}
-.rep-body{background:var(--sheet);border:1px solid var(--line);border-top:0;border-radius:0 0 14px 14px;padding:0 0 22px}
+/* Reporte */
+.report{max-width:900px}
+.rep-band{background:var(--night);color:var(--on-night);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:24px 26px 30px;display:grid;gap:14px}
+.rep-band .tag{color:var(--on-night-muted)}
+.rep-band h2{font-size:clamp(28px,3.6vw,42px);font-weight:800;letter-spacing:-.04em}
+.rep-body{background:var(--sheet);border:1px solid var(--line);border-top:0;border-radius:0 0 var(--r-lg) var(--r-lg);padding-bottom:24px}
 .rep-body .kpis{border-radius:0;border-left:0;border-right:0;border-top:0}
-.rep-sec{padding:20px 24px 0}
-.rep-sec h3{font-size:15px;margin-bottom:10px}
-.summary-line{font-size:16px;line-height:1.55;max-width:62ch;margin:0}
-.summary-line mark{background:linear-gradient(transparent 60%,var(--signal-soft) 60%);color:inherit;font-weight:700}
-.list-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.li-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;display:grid;gap:6px;font-size:13.5px}
-.next{margin:20px 24px 0;background:var(--ink);color:var(--on-ink);border-radius:12px;padding:18px 20px}
-.next h3{font-size:15px;margin-bottom:10px}
-.next ol{margin:0;padding:0;list-style:none;display:grid;gap:8px;counter-reset:n}
-.next li{display:flex;gap:10px;counter-increment:n}
-.next li::before{content:counter(n);font-family:var(--f-display);font-weight:800;color:var(--signal);min-width:14px}
-.next .goal{margin-top:12px;font-family:var(--f-mono);font-size:12px;color:var(--signal)}
-.rep-foot{padding:18px 24px 0;font-size:11.5px;color:var(--muted);font-family:var(--f-mono)}
+.rep-sec{padding:22px 26px 0}
+.rep-sec h3{font-size:16px;margin-bottom:10px}
+.summary-line{font-size:18px;line-height:1.55;max-width:60ch}
+.summary-line mark{background:linear-gradient(transparent 58%,color-mix(in srgb,var(--accent) 35%,transparent) 58%);color:inherit;font-weight:700}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.li-card{border:1px solid var(--line);border-radius:var(--r-md);padding:14px 16px;display:grid;gap:8px;font-size:14px}
+.li-card .chip{justify-self:start}
+.next{margin:22px 26px 0;background:var(--night);color:var(--on-night);border-radius:var(--r-md);padding:20px 22px}
+.next h3{font-size:16px;margin-bottom:12px}
+.next ol{margin:0;padding:0;list-style:none;display:grid;gap:9px;counter-reset:n}
+.next li{display:flex;gap:12px;counter-increment:n}
+.next li::before{content:counter(n);font-family:var(--f-display);font-weight:800;color:var(--accent);min-width:14px}
+.next .goal-line{margin-top:14px;display:inline-block;background:var(--accent);color:var(--on-accent);font-weight:700;border-radius:99px;padding:4px 14px;font-size:13px}
+.rep-foot{padding:18px 26px 0;font-size:12px;color:var(--muted)}
+.pub-note{display:flex;gap:10px;align-items:center;margin-bottom:12px;font-size:13px}
 
 /* Modal, toast */
-.scrim{position:fixed;inset:0;background:rgba(10,13,28,.5);display:grid;place-items:center;z-index:50;padding:20px}
-.modal{background:var(--sheet);border-radius:14px;max-width:560px;width:100%;max-height:88vh;overflow:auto;padding:22px;display:grid;gap:14px;box-shadow:0 20px 60px rgba(0,0,0,.3)}
-.modal h3{font-size:19px}
-.kv{display:grid;grid-template-columns:120px 1fr;gap:8px 12px;font-size:13px}
+.scrim{position:fixed;inset:0;background:rgba(11,12,14,.55);display:grid;place-items:center;z-index:50;padding:20px}
+.modal{background:var(--sheet);border-radius:var(--r-lg);max-width:620px;width:100%;max-height:90vh;overflow:auto;padding:24px;display:grid;gap:16px;box-shadow:0 30px 80px rgba(0,0,0,.35)}
+.modal h3{font-size:22px}
+.modal-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.modal-foot{display:flex;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.kv{display:grid;grid-template-columns:120px 1fr;gap:8px 12px;font-size:13.5px;margin:0}
 .kv dt{color:var(--muted)}
 .kv dd{margin:0}
-.check{display:flex;gap:8px;align-items:center;font-size:13px}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--on-ink);padding:10px 16px;border-radius:10px;font-size:13px;z-index:60;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
-.empty{padding:36px 20px;text-align:center;display:grid;gap:10px;justify-items:center;color:var(--muted)}
-.empty h3{color:var(--text);font-size:17px}
+.check{display:flex;gap:8px;align-items:center;font-size:13.5px}
+.steps{display:flex;gap:6px;font-size:12px;font-weight:700;color:var(--muted)}
+.steps span{padding:2px 10px;border-radius:99px;background:var(--sheet-2)}
+.steps span.on{background:var(--accent);color:var(--on-accent)}
+.ok-mark{color:var(--up);font-weight:800}
+.pass{font-family:var(--f-display);font-size:26px;font-weight:700;letter-spacing:.02em;background:var(--sheet-2);border-radius:var(--r-sm);padding:10px 14px;user-select:all}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--night);color:var(--on-night);padding:11px 18px;border-radius:99px;font-size:13.5px;font-weight:600;z-index:60;box-shadow:var(--shadow);max-width:calc(100% - 32px)}
+.empty{padding:40px 20px;text-align:center;display:grid;gap:10px;justify-items:center;color:var(--muted)}
+.empty h3{color:var(--text);font-size:18px}
 
-@media (max-width:1100px){.sprint-head{grid-template-columns:1fr 1fr}.sprint-head .sprint-goal{grid-column:1/-1}}
+@media (max-width:1100px){.sprint-head{grid-template-columns:1fr 1fr}.sprint-head .goal{grid-column:1/-1}}
 @media (max-width:860px){
   .login{grid-template-columns:1fr}
-  .login-brand{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:32px}
+  .login-brand{padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));padding-block:30px}
+  .login-side{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
   .shell{grid-template-columns:1fr}
-  .rail{position:sticky;height:auto;flex-direction:row;align-items:center;gap:12px;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));z-index:20;overflow-x:auto;overflow-y:hidden}
-  .brand div{display:none}
+  .rail{height:auto;flex-direction:row;align-items:center;gap:12px;padding-block:10px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));z-index:20;overflow-x:auto;overflow-y:hidden;border-right:0}
+  .rail .logo-txt{display:none}
   .nav{display:flex;gap:4px}
-  .nav button{white-space:nowrap;padding:7px 10px}
-  .nav button[aria-current="page"]{box-shadow:inset 0 -3px 0 var(--signal)}
+  .nav button{white-space:nowrap;padding:7px 12px}
   .rail-foot{margin:0;border:0;padding:0;display:flex}
-  .rail-foot .me div{display:none}
+  .rail-foot .me-txt{display:none}
   .main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-  .g-2,.g-3,.list-2,.retro-cols,.sprint-head{grid-template-columns:1fr}
+  .two,.retro-cols,.sprint-head,.form-grid,.acc-grid{grid-template-columns:1fr!important}
   .detail-grid{grid-template-columns:1fr}
-  .client-pick select{min-width:0;width:100%}
-  .client-pick{width:100%}
-  #acc-grid{grid-template-columns:1fr!important}
+  .picker,.picker select{width:100%;min-width:0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
@@ -280,33 +315,40 @@ tr.open td{background:color-mix(in srgb,var(--signal) 7%,transparent)}
 
 <script>
 /* ============================================================
-   DATOS DE EJEMPLO DEL PROTOTIPO
+   DATOS DEL PROTOTIPO
    Parrillas: tomadas de las parrillas reales de TaxBox y LUCA (nov 2026).
    Estatus, tareas, campañas y métricas: cifras de ejemplo.
    ============================================================ */
 const CLIENTS = [
-  {id:'taxbox', name:'TaxBox', sector:'Devolución de impuestos por nómina', ini:'TB'},
-  {id:'luca', name:'LUCA', sector:'Plataforma contable · Lite y Pro', ini:'LU'},
-  {id:'castelan', name:'Castelán', sector:'Cuenta activa', ini:'CA'},
-  {id:'facturafast', name:'FacturaFast', sector:'Cuenta activa', ini:'FF'},
-  {id:'meson', name:'Mesón de los Reyes', sector:'Cuenta activa', ini:'MR'},
-  {id:'milo', name:'MILO', sector:'Cuenta activa', ini:'MI'},
-  {id:'novaflight', name:'NovaFlight', sector:'Cuenta activa', ini:'NF'},
-  {id:'ilse', name:'Ilse Cosio', sector:'Marca personal', ini:'IC'},
+  {id:'alphabrand', name:'AlphaBrand', note:'Agencia · Puebla'},
+  {id:'ilse', name:'Ilse Cosio', note:'Marca personal'},
+];
+const BRANDS = [
+  {id:'taxbox', client:'alphabrand', name:'TaxBox', sector:'Devolución de impuestos por nómina', ini:'TB'},
+  {id:'luca', client:'alphabrand', name:'LUCA', sector:'Plataforma contable · Lite y Pro', ini:'LU'},
+  {id:'castelan', client:'alphabrand', name:'Castelán', sector:'Marca de AlphaBrand', ini:'CA'},
+  {id:'facturafast', client:'alphabrand', name:'FacturaFast', sector:'Marca de AlphaBrand', ini:'FF'},
+  {id:'meson', client:'alphabrand', name:'Mesón de los Reyes', sector:'Marca de AlphaBrand', ini:'MR'},
+  {id:'milo', client:'alphabrand', name:'MILO', sector:'Marca de AlphaBrand', ini:'MI'},
+  {id:'novaflight', client:'alphabrand', name:'NovaFlight', sector:'Marca de AlphaBrand', ini:'NF'},
+  {id:'ilse', client:'ilse', name:'Ilse Cosio', sector:'Marca personal', ini:'IC'},
 ];
 const TEAM = {
-  JP:{name:'Jorge Peñaloza', role:'Admin · Estrategia y pauta'},
-  DI:{name:'Diseño', role:'Equipo · Diseñador'},
-  CM:{name:'Community', role:'Equipo · Community manager'},
+  JP:{name:'Jorge Peñaloza', role:'Estrategia y pauta'},
+  DI:{name:'Diseño', role:'Diseñador'},
+  CM:{name:'Community', role:'Community manager'},
 };
 const USERS = [
   {user:'jorge', name:'Jorge Peñaloza', role:'admin', ini:'JP', accounts:'Todas'},
   {user:'diseno', name:'Diseño', role:'equipo', ini:'DI', accounts:'Todas'},
   {user:'community', name:'Community', role:'equipo', ini:'CM', accounts:'Todas'},
-  {user:'taxbox', name:'Cliente TaxBox', role:'cliente', ini:'TB', accounts:'TaxBox', client:'taxbox'},
-  {user:'luca', name:'Cliente LUCA', role:'cliente', ini:'LU', accounts:'LUCA', client:'luca'},
+  {user:'alphabrand', name:'AlphaBrand', role:'cliente', ini:'AB', client:'alphabrand', accounts:'AlphaBrand · 7 marcas'},
+  {user:'taxbox', name:'Equipo TaxBox', role:'cliente', ini:'TB', brands:['taxbox'], accounts:'Solo TaxBox'},
+  {user:'ilse', name:'Ilse Cosio', role:'cliente', ini:'IC', client:'ilse', accounts:'Ilse Cosio'},
 ];
-const TYPE_COLOR = {Diseño:'var(--violet)', Video:'var(--down)', Copy:'var(--blue)', Pauta:'var(--signal-text)', Community:'var(--up)', Reporte:'var(--muted)', Estrategia:'var(--text)'};
+const ROLE_L = {admin:'Administrador', equipo:'Colaborador', cliente:'Cliente'};
+const TYPE_COLOR = {Diseño:'var(--violet)', Video:'var(--down)', Copy:'var(--accent-text)', Pauta:'var(--warn)', Community:'var(--up)', Reporte:'var(--muted)', Estrategia:'var(--text)'};
+const TYPES = Object.keys(TYPE_COLOR);
 const COLS = [
   {id:'todo', label:'Por hacer'}, {id:'doing', label:'En proceso'},
   {id:'review', label:'En revisión'}, {id:'done', label:'Hecho'},
@@ -318,56 +360,54 @@ let TASKS = [
   {id:'t4', c:'taxbox', title:'Armar audiencia C4 Remarketing (ORG-26 a ORG-31)', type:'Pauta', who:'JP', pts:3, st:'todo', due:'2026-11-13'},
   {id:'t5', c:'taxbox', title:'Programar historias ORG-29, ORG-31 y ORG-33', type:'Community', who:'CM', pts:2, st:'todo', due:'2026-11-12'},
   {id:'t6', c:'taxbox', title:'Diseñar ORG-28 · Compras que conviene facturar', type:'Diseño', who:'DI', pts:3, st:'done', due:'2026-11-10'},
-  {id:'t7', c:'luca', title:'Grabaciones de pantalla reales para BF-03 y ORG-26', type:'Video', who:'DI', pts:5, st:'doing', due:'2026-11-14'},
-  {id:'t8', c:'luca', title:'Respuesta automática de WhatsApp para «BUEN FIN»', type:'Community', who:'CM', pts:2, st:'todo', due:'2026-11-12'},
+  {id:'t7', c:'luca', title:'Grabaciones de pantalla reales para BF-03 y ORG-26', type:'Video', who:'DI', pts:3, st:'doing', due:'2026-11-13'},
+  {id:'t8', c:'luca', title:'Respuesta automática de WhatsApp para «BUEN FIN»', type:'Community', who:'CM', pts:2, st:'done', due:'2026-11-11'},
   {id:'t9', c:'luca', title:'Confirmar por escrito la oferta Buen Fin y hora de cierre del 17', type:'Estrategia', who:'JP', pts:1, st:'review', due:'2026-11-12'},
-  {id:'t10', c:'luca', title:'Diseñar piezas BF-01 a BF-05', type:'Diseño', who:'DI', pts:8, st:'doing', due:'2026-11-12'},
-  {id:'t11', c:'luca', title:'Programar ORG-22 a ORG-24', type:'Community', who:'CM', pts:2, st:'done', due:'2026-11-09'},
-  {id:'t12', c:'facturafast', title:'Reporte mensual de octubre', type:'Reporte', who:'JP', pts:3, st:'done', due:'2026-11-09'},
-  {id:'t13', c:'ilse', title:'Reporte mensual de octubre', type:'Reporte', who:'JP', pts:3, st:'done', due:'2026-11-09'},
-  {id:'t14', c:'castelan', title:'Responder comentarios y mensajes de la semana', type:'Community', who:'CM', pts:2, st:'doing', due:'2026-11-14'},
-  {id:'t15', c:'milo', title:'Editar 3 reels de producto', type:'Video', who:'DI', pts:5, st:'todo', due:'2026-11-18'},
-  {id:'t16', c:'novaflight', title:'Brief de campaña de temporada', type:'Estrategia', who:'JP', pts:3, st:'todo', due:'2026-11-19'},
+  {id:'t10', c:'luca', title:'Diseñar piezas BF-01 a BF-05', type:'Diseño', who:'DI', pts:5, st:'doing', due:'2026-11-12'},
+  {id:'t11', c:'luca', title:'Programar ORG-22 a ORG-24', type:'Community', who:'CM', pts:1, st:'done', due:'2026-11-09'},
+  {id:'t12', c:'facturafast', title:'Reporte mensual de octubre', type:'Reporte', who:'JP', pts:2, st:'done', due:'2026-11-09'},
+  {id:'t13', c:'ilse', title:'Reporte mensual de octubre', type:'Reporte', who:'JP', pts:2, st:'done', due:'2026-11-09'},
+  {id:'t14', c:'castelan', title:'Responder comentarios y mensajes de la semana', type:'Community', who:'CM', pts:2, st:'doing', due:'2026-11-13'},
 ];
 let BACKLOG = [
   {id:'b1', c:'meson', title:'Parrilla de diciembre · cenas de fin de año', type:'Copy', pts:5, prio:'Alta'},
   {id:'b2', c:'taxbox', title:'Parrilla de diciembre · rumbo a la declaración anual', type:'Copy', pts:5, prio:'Alta'},
-  {id:'b3', c:'luca', title:'Programa Partner · landing y carrusel de LinkedIn', type:'Estrategia', pts:3, prio:'Media'},
-  {id:'b4', c:'milo', title:'Sesión de fotos de producto', type:'Diseño', pts:8, prio:'Media'},
-  {id:'b5', c:'ilse', title:'Calendario de lives de diciembre', type:'Community', pts:2, prio:'Baja'},
-  {id:'b6', c:'novaflight', title:'Estructura de campañas Google Search', type:'Pauta', pts:3, prio:'Media'},
+  {id:'b3', c:'milo', title:'Editar 3 reels de producto', type:'Video', pts:5, prio:'Alta'},
+  {id:'b4', c:'novaflight', title:'Brief de campaña de temporada', type:'Estrategia', pts:3, prio:'Media'},
+  {id:'b5', c:'luca', title:'Programa Partner · landing y carrusel de LinkedIn', type:'Estrategia', pts:3, prio:'Media'},
+  {id:'b6', c:'novaflight', title:'Estructura de campañas en Google Search', type:'Pauta', pts:3, prio:'Media'},
+  {id:'b7', c:'milo', title:'Sesión de fotos de producto', type:'Diseño', pts:8, prio:'Baja'},
+  {id:'b8', c:'ilse', title:'Calendario de lives de diciembre', type:'Community', pts:2, prio:'Baja'},
 ];
 
 const P_STATUS = ['Por aprobar','Autorizado','Cambios','En proceso','Programado','Publicado'];
-const P_COLOR = {'Por aprobar':'var(--signal-text)','Autorizado':'var(--up)','Cambios':'var(--down)','En proceso':'var(--blue)','Programado':'var(--violet)','Publicado':'var(--muted)'};
+const P_COLOR = {'Por aprobar':'var(--warn)','Autorizado':'var(--up)','Cambios':'var(--down)','En proceso':'var(--accent-text)','Programado':'var(--violet)','Publicado':'var(--muted)'};
 const PARRILLA = {
   taxbox: [
-    {id:'ORG-26', sem:'Semana 2', f:'2026-11-09', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Estática 4:5', hook:'El 13 llega la única oferta del Buen Fin que te regresa dinero 👀', guia:'Intriga de cuenta regresiva: todos esperan descuentos para gastar; nosotros anunciamos uno para recuperar. Sin revelar precio.', cont:'ETIQUETA: FALTAN 4 DÍAS\nTITULAR: Este Buen Fin, la mejor oferta no está en las tiendas.\nSUBTÍTULO: Está en tu recibo de nómina.', cap:'Todos esperan el Buen Fin para gastar. Este año, tú puedes esperarlo para recuperar 💚', pauta:'No · orgánica (intriga). Se puede usar en C4 Remarketing desde el 13/11', wa:'Hola, quiero apartar mi lugar para la oferta del Buen Fin', st:'Publicado', thread:[], nota:'Teaser: no se revela el precio todavía.'},
-    {id:'ORG-27', sem:'Semana 2', f:'2026-11-10', h:'13:00', pilar:'Partner (15%)', canal:'IG + FB', fmt:'Estática 1200×1200', hook:'Esta semana todos tus contactos están buscando ofertas. Dales una que les regresa dinero.', guia:'Para quien vende: aprovechar la conversación del Buen Fin para recomendar algo útil y ganar por ello.', cont:'TITULAR: Si vendes, el Buen Fin es tu temporada.\nSUBTÍTULO: Recomienda TaxBox a tus contactos que cobran por nómina y gana por cada uno que recupere su dinero.', cap:'Esta semana todos hablan de ofertas. Tú puedes llegar con una que sí les deja dinero 💼', pauta:'Sí · C3 Partner · Mensajes WhatsApp · $33/día', wa:'Hola, quiero ser Partner de TaxBox', st:'Publicado', thread:[], nota:'Sin montos de comisión, solo «utilidades».'},
-    {id:'ORG-28', sem:'Semana 2', f:'2026-11-11', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Carrusel 5 slides', hook:'Si vas a comprar esto en el Buen Fin, pide factura 🧾', guia:'Tip útil y guardable: hay compras que, bien facturadas, ayudan a tu declaración.', cont:'SLIDE 1\nTITULAR: Si vas a comprar esto en el Buen Fin, pide factura 🧾\nSUBTÍTULO: Tu yo de abril te lo va a agradecer', cap:'Guárdalo antes de salir de compras 📌', pauta:'Sí · C1 Producto · Mensajes WhatsApp · $133/día', wa:'Hola, quiero saber qué compras me ayudan en mi declaración', st:'Publicado', thread:[{who:'Cliente TaxBox', t:'Autorizado. ¡Muy claro el carrusel!', when:'10 nov'}], nota:''},
-    {id:'ORG-29', sem:'Semana 2', f:'2026-11-12', h:'12:00', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Historias (3)', hook:'Mañana se revela 👀', guia:'Último día de intriga: revelar el precio como adelanto exclusivo para quien nos sigue.', cont:'HISTORIA 1 · Sticker de cuenta regresiva «Buen Fin TaxBox»\nHISTORIA 2 «Adelanto exclusivo para ti: anticipo de $100 (antes $300)»', cap:'Sin caption (historias). Cuenta regresiva en la 1 y enlace a WhatsApp en la 3.', pauta:'No · orgánica', wa:'Hola, vi el adelanto y quiero la oferta del Buen Fin', st:'Programado', thread:[], nota:'Precio de $100 sujeto a confirmación del cliente.'},
-    {id:'ORG-30', sem:'Semana 2', f:'2026-11-13', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB + TikTok', fmt:'Reel 20 s', hook:'La única oferta del Buen Fin que te regresa dinero 💸', guia:'Lanzamiento con energía de Buen Fin, pero al revés: en vez de gastar, recuperas. Divertido, con urgencia de 5 días.', cont:'ESCENA 1 (0-3 s) · El talento con bolsas de compras, viendo su celular con notificaciones de ofertas.\nRÓTULO: Todas las ofertas del Buen Fin: gasta, gasta, gasta…', cap:'Este Buen Fin, la oferta es para recuperar, no para gastar 💚', pauta:'Sí · C1 Producto · sugerencia: subir C1 a $200/día del 13 al 17', wa:'Hola, quiero la oferta del Buen Fin de TaxBox', st:'Autorizado', thread:[{who:'Cliente TaxBox', t:'Autorizado, adelante con el reel.', when:'11 nov'}], nota:'Precio de $100 sujeto a confirmación del cliente.'},
-    {id:'ORG-31', sem:'Semana 2', f:'2026-11-14', h:'12:00', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Historias (3)', hook:'Mientras haces fila en la tienda… 🛒', guia:'Recordatorio de fin de semana de Buen Fin, ligero y con humor.', cont:'HISTORIA 1 · Encuesta «¿Ya caíste en alguna oferta del Buen Fin? 🛍️»', cap:'Sin caption (historias). Encuesta en la 1 y enlace a WhatsApp en la 3.', pauta:'No · orgánica', wa:'Hola, quiero aprovechar la oferta de $100 del Buen Fin', st:'Cambios', thread:[{who:'Cliente TaxBox', t:'¿Podemos cambiar la encuesta por una pregunta sobre deducciones?', when:'11 nov'}], nota:''},
-    {id:'ORG-32', sem:'Semana 3', f:'2026-11-16', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Estática 4:5', hook:'Quedan 2 días: aprovecha el puente 🗓️', guia:'Urgencia clara de cierre de promo, aprovechando el puente del lunes.', cont:'ETIQUETA: ÚLTIMOS 2 DÍAS\nTITULAR: Revisión de tu caso: $300 → $100\nSUBTÍTULO: Solo hasta el martes 17 de noviembre', cap:'Aprovecha el puente para lo que sí te deja algo 💚', pauta:'Sí · C4 Remarketing + C1 Producto', wa:'Hola, quiero aprovechar la oferta antes de que termine', st:'Por aprobar', thread:[], nota:''},
-    {id:'ORG-33', sem:'Semana 3', f:'2026-11-17', h:'12:00', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Historias (3)', hook:'Último día ⏰', guia:'Cierre de promo con urgencia y cercanía, sin presionar de más.', cont:'HISTORIA 1 · Sticker de cuenta regresiva (17/11, 23:59)\n«ÚLTIMO DÍA ⏰ Revisión de tu caso por $100 (antes $300)»', cap:'Sin caption (historias).', pauta:'No · orgánica', wa:'Hola, ¿todavía alcanzo la oferta del Buen Fin?', st:'Por aprobar', thread:[], nota:''},
-    {id:'ORG-34', sem:'Semana 3', f:'2026-11-19', h:'09:00', pilar:'Empresa (15%)', canal:'LinkedIn + FB', fmt:'Estática 1200×1200', hook:'¿Ya estás armando las prestaciones de 2027? Suma una que no te cuesta.', guia:'Planeación de fin de año para RH y dueños: un beneficio nuevo, moderno y sin costo.', cont:'TITULAR: ¿Ya estás armando las prestaciones de 2027?\nSUBTÍTULO: Suma una que tu equipo sí va a usar y a tu empresa no le cuesta.', cap:'Cierre de año es cuando se decide qué cambia en el paquete de beneficios 💼', pauta:'Sí · C2 Empresas · $33/día', wa:'Hola, quiero conocer la propuesta completa de TaxBox para empresas', st:'Por aprobar', thread:[], nota:''},
-    {id:'ORG-35', sem:'Semana 3', f:'2026-11-20', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB + TikTok', fmt:'Reel 20 s', hook:'Mi tarjeta después del Buen Fin 😵', guia:'Tendencia post Buen Fin: el susto del estado de cuenta. Giro aspiracional: en abril puedes dejarla en ceros con tu propio dinero.', cont:'ESCENA 1 (0-3 s) · El talento abre la app del banco y se queda congelado.\nRÓTULO: Mi tarjeta después del Buen Fin 😵', cap:'Etiqueta a quien también está viendo su estado de cuenta con miedo 😅', pauta:'Sí · C1 Producto · $133/día', wa:'Hola, quiero saber si puedo recuperar dinero en abril', st:'Por aprobar', thread:[], nota:'Post Buen Fin: ya sin precio.'},
-    {id:'ORG-36', sem:'Semana 4', f:'2026-11-23', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Carrusel 5 slides', hook:'5 señales de que este año te retuvieron de más', guia:'Checklist identificable: el usuario se reconoce en alguna señal y quiere revisarlo.', cont:'SLIDE 1\nTITULAR: 5 señales de que este año te retuvieron de más 👀', cap:'¿Con cuántas te identificaste? 👇', pauta:'Sí · C1 Producto · $133/día', wa:'Hola, me identifiqué con las señales y quiero revisar mi caso', st:'En proceso', thread:[], nota:''},
-    {id:'ORG-39', sem:'Semana 4', f:'2026-11-27', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB + TikTok', fmt:'Reel 15 s', hook:'Cosas que pienso hacer en abril (y sí me va a alcanzar) ✨', guia:'Tendencia de lista rápida con cortes: planes aspiracionales pagados con tu propio dinero.', cont:'ESCENA 1 (0-2 s) · El talento a cámara, emocionado, con libreta.\nRÓTULO: Cosas que pienso hacer en abril ✨', cap:'¿Qué pondrías tú en la lista? 👇', pauta:'Sí · C1 Producto · $133/día', wa:'Hola, quiero saber cuánto podría recuperar en abril', st:'En proceso', thread:[], nota:''},
+    {id:'ORG-26', f:'2026-11-09', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Estática 4:5', hook:'El 13 llega la única oferta del Buen Fin que te regresa dinero 👀', guia:'Intriga de cuenta regresiva: todos esperan descuentos para gastar; nosotros anunciamos uno para recuperar. Sin revelar precio.', cont:'ETIQUETA: FALTAN 4 DÍAS\nTITULAR: Este Buen Fin, la mejor oferta no está en las tiendas.\nSUBTÍTULO: Está en tu recibo de nómina.', cap:'Todos esperan el Buen Fin para gastar. Este año, tú puedes esperarlo para recuperar 💚', pauta:'No · orgánica (intriga). Se puede usar en C4 Remarketing desde el 13/11', wa:'Hola, quiero apartar mi lugar para la oferta del Buen Fin', st:'Publicado', thread:[], nota:'Teaser: no se revela el precio todavía.'},
+    {id:'ORG-27', f:'2026-11-10', h:'13:00', pilar:'Partner (15%)', canal:'IG + FB', fmt:'Estática 1200×1200', hook:'Esta semana todos tus contactos están buscando ofertas. Dales una que les regresa dinero.', guia:'Para quien vende: aprovechar la conversación del Buen Fin para recomendar algo útil y ganar por ello.', cont:'TITULAR: Si vendes, el Buen Fin es tu temporada.\nSUBTÍTULO: Recomienda TaxBox a tus contactos que cobran por nómina y gana por cada uno que recupere su dinero.', cap:'Esta semana todos hablan de ofertas. Tú puedes llegar con una que sí les deja dinero 💼', pauta:'Sí · C3 Partner · Mensajes WhatsApp · $33/día', wa:'Hola, quiero ser Partner de TaxBox', st:'Publicado', thread:[], nota:'Sin montos de comisión, solo «utilidades».'},
+    {id:'ORG-28', f:'2026-11-11', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Carrusel 5 slides', hook:'Si vas a comprar esto en el Buen Fin, pide factura 🧾', guia:'Tip útil y guardable: hay compras que, bien facturadas, ayudan a tu declaración.', cont:'SLIDE 1\nTITULAR: Si vas a comprar esto en el Buen Fin, pide factura 🧾\nSUBTÍTULO: Tu yo de abril te lo va a agradecer', cap:'Guárdalo antes de salir de compras 📌', pauta:'Sí · C1 Producto · Mensajes WhatsApp · $133/día', wa:'Hola, quiero saber qué compras me ayudan en mi declaración', st:'Publicado', thread:[{who:'Equipo TaxBox', t:'Autorizado. ¡Muy claro el carrusel!', when:'10 nov'}], nota:''},
+    {id:'ORG-29', f:'2026-11-12', h:'12:00', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Historias (3)', hook:'Mañana se revela 👀', guia:'Último día de intriga: revelar el precio como adelanto exclusivo para quien nos sigue.', cont:'HISTORIA 1 · Sticker de cuenta regresiva «Buen Fin TaxBox»\nHISTORIA 2 «Adelanto exclusivo para ti: anticipo de $100 (antes $300)»', cap:'Sin caption (historias). Cuenta regresiva en la 1 y enlace a WhatsApp en la 3.', pauta:'No · orgánica', wa:'Hola, vi el adelanto y quiero la oferta del Buen Fin', st:'Programado', thread:[], nota:'Precio de $100 sujeto a confirmación del cliente.'},
+    {id:'ORG-30', f:'2026-11-13', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB + TikTok', fmt:'Reel 20 s', hook:'La única oferta del Buen Fin que te regresa dinero 💸', guia:'Lanzamiento con energía de Buen Fin, pero al revés: en vez de gastar, recuperas. Divertido, con urgencia de 5 días.', cont:'ESCENA 1 (0-3 s) · El talento con bolsas de compras, viendo su celular con notificaciones de ofertas.\nRÓTULO: Todas las ofertas del Buen Fin: gasta, gasta, gasta…', cap:'Este Buen Fin, la oferta es para recuperar, no para gastar 💚', pauta:'Sí · C1 Producto · sugerencia: subir C1 a $200/día del 13 al 17', wa:'Hola, quiero la oferta del Buen Fin de TaxBox', st:'Autorizado', thread:[{who:'Equipo TaxBox', t:'Autorizado, adelante con el reel.', when:'11 nov'}], nota:'Precio de $100 sujeto a confirmación del cliente.'},
+    {id:'ORG-31', f:'2026-11-14', h:'12:00', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Historias (3)', hook:'Mientras haces fila en la tienda… 🛒', guia:'Recordatorio de fin de semana de Buen Fin, ligero y con humor.', cont:'HISTORIA 1 · Encuesta «¿Ya caíste en alguna oferta del Buen Fin? 🛍️»', cap:'Sin caption (historias). Encuesta en la 1 y enlace a WhatsApp en la 3.', pauta:'No · orgánica', wa:'Hola, quiero aprovechar la oferta de $100 del Buen Fin', st:'Cambios', thread:[{who:'Equipo TaxBox', t:'¿Podemos cambiar la encuesta por una pregunta sobre deducciones?', when:'11 nov'}], nota:''},
+    {id:'ORG-32', f:'2026-11-16', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Estática 4:5', hook:'Quedan 2 días: aprovecha el puente 🗓️', guia:'Urgencia clara de cierre de promo, aprovechando el puente del lunes.', cont:'ETIQUETA: ÚLTIMOS 2 DÍAS\nTITULAR: Revisión de tu caso: $300 → $100\nSUBTÍTULO: Solo hasta el martes 17 de noviembre', cap:'Aprovecha el puente para lo que sí te deja algo 💚', pauta:'Sí · C4 Remarketing + C1 Producto', wa:'Hola, quiero aprovechar la oferta antes de que termine', st:'Por aprobar', thread:[], nota:''},
+    {id:'ORG-33', f:'2026-11-17', h:'12:00', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Historias (3)', hook:'Último día ⏰', guia:'Cierre de promo con urgencia y cercanía, sin presionar de más.', cont:'HISTORIA 1 · Sticker de cuenta regresiva (17/11, 23:59)\n«ÚLTIMO DÍA ⏰ Revisión de tu caso por $100 (antes $300)»', cap:'Sin caption (historias).', pauta:'No · orgánica', wa:'Hola, ¿todavía alcanzo la oferta del Buen Fin?', st:'Por aprobar', thread:[], nota:''},
+    {id:'ORG-34', f:'2026-11-19', h:'09:00', pilar:'Empresa (15%)', canal:'LinkedIn + FB', fmt:'Estática 1200×1200', hook:'¿Ya estás armando las prestaciones de 2027? Suma una que no te cuesta.', guia:'Planeación de fin de año para RH y dueños: un beneficio nuevo, moderno y sin costo.', cont:'TITULAR: ¿Ya estás armando las prestaciones de 2027?\nSUBTÍTULO: Suma una que tu equipo sí va a usar y a tu empresa no le cuesta.', cap:'Cierre de año es cuando se decide qué cambia en el paquete de beneficios 💼', pauta:'Sí · C2 Empresas · $33/día', wa:'Hola, quiero conocer la propuesta completa de TaxBox para empresas', st:'Por aprobar', thread:[], nota:''},
+    {id:'ORG-35', f:'2026-11-20', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB + TikTok', fmt:'Reel 20 s', hook:'Mi tarjeta después del Buen Fin 😵', guia:'Tendencia post Buen Fin: el susto del estado de cuenta. Giro aspiracional: en abril puedes dejarla en ceros con tu propio dinero.', cont:'ESCENA 1 (0-3 s) · El talento abre la app del banco y se queda congelado.\nRÓTULO: Mi tarjeta después del Buen Fin 😵', cap:'Etiqueta a quien también está viendo su estado de cuenta con miedo 😅', pauta:'Sí · C1 Producto · $133/día', wa:'Hola, quiero saber si puedo recuperar dinero en abril', st:'Por aprobar', thread:[], nota:'Post Buen Fin: ya sin precio.'},
+    {id:'ORG-36', f:'2026-11-23', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB', fmt:'Carrusel 5 slides', hook:'5 señales de que este año te retuvieron de más', guia:'Checklist identificable: el usuario se reconoce en alguna señal y quiere revisarlo.', cont:'SLIDE 1\nTITULAR: 5 señales de que este año te retuvieron de más 👀', cap:'¿Con cuántas te identificaste? 👇', pauta:'Sí · C1 Producto · $133/día', wa:'Hola, me identifiqué con las señales y quiero revisar mi caso', st:'En proceso', thread:[], nota:''},
+    {id:'ORG-39', f:'2026-11-27', h:'19:30', pilar:'Producto (70%)', canal:'IG + FB + TikTok', fmt:'Reel 15 s', hook:'Cosas que pienso hacer en abril (y sí me va a alcanzar) ✨', guia:'Tendencia de lista rápida con cortes: planes aspiracionales pagados con tu propio dinero.', cont:'ESCENA 1 (0-2 s) · El talento a cámara, emocionado, con libreta.\nRÓTULO: Cosas que pienso hacer en abril ✨', cap:'¿Qué pondrías tú en la lista? 👇', pauta:'Sí · C1 Producto · $133/día', wa:'Hola, quiero saber cuánto podría recuperar en abril', st:'En proceso', thread:[], nota:''},
   ],
   luca: [
-    {id:'ORG-22', sem:'Semana 2', f:'2026-11-09', h:'19:30', pilar:'LUCA Lite · Certidumbre y Control · TOFU', canal:'IG + FB', fmt:'Carrusel 4 slides 4:5', hook:'Cómo cierran el mes los que sí traen sus números claros 📋', guia:'Mostrar, sin drama, cómo se ve un cierre de mes ordenado. Tono de colega que comparte su método.', cont:'SLIDE 1 (PORTADA) «Cómo cierran el mes los que sí traen sus números claros 📋»', cap:'Cerrar el mes no es un día de caos: es una revisión de 10 minutos cuando tienes todo en un solo lugar. 📋', pauta:'Orgánica', wa:'Hola LUCA 👋 Quiero cerrar mi mes sin batallar. ¿Cómo activo mi prueba gratis?', st:'Publicado', thread:[], nota:''},
-    {id:'ORG-23', sem:'Semana 2', f:'2026-11-11', h:'09:00', pilar:'LUCA Pro · Eficiencia y Practicidad · MOFU', canal:'FB + IG', fmt:'Carrusel 4 slides 4:5', hook:'Qué cambia cuando tus clientes dejan de estar en 5 lugares distintos', guia:'Explicar en concreto qué cambia en el día a día del despacho. Corporativo, claro y con captura real del tablero.', cont:'SLIDE 1 (PORTADA) «Qué cambia cuando tus clientes dejan de estar en 5 lugares distintos»', cap:'La información de tus clientes no está perdida. Está repartida. 🗂️', pauta:'Orgánica', wa:'Hola LUCA 👋 Tengo un despacho y quiero ver cómo funciona LUCA Pro con mis clientes.', st:'Publicado', thread:[], nota:''},
-    {id:'ORG-24', sem:'Semana 2', f:'2026-11-12', h:'13:00', pilar:'Lite + Pro · Oferta · MOFU', canal:'IG + FB + LinkedIn', fmt:'Estática 4:5', hook:'Mañana empieza. El Buen Fin de LUCA · 13 al 17 de noviembre', guia:'Recordatorio del arranque. Fecha enorme, una sola acción (escribir por WhatsApp), sin revelar los números todavía.', cont:'Arriba: «Mañana empieza.»\nCentro: «El Buen Fin de LUCA · 13 al 17 de noviembre»', cap:'Mañana arranca el Buen Fin de LUCA y dura hasta el 17. 🛒', pauta:'Orgánica', wa:'BUEN FIN 🛒 Quiero que me avisen en cuanto arranque la promoción de LUCA.', st:'Programado', thread:[], nota:''},
-    {id:'BF-01', sem:'Buen Fin', f:'2026-11-13', h:'09:00', pilar:'Lite + Pro · Oferta · BOFU', canal:'IG + FB + LinkedIn', fmt:'Estática 4:5', hook:'Empieza el Buen Fin de LUCA', guia:'Arranque de la promoción: los números al frente y la vigencia muy visible.', cont:'Bloque Lite: «$249» tachado → «$200 al mes»\nBloque Pro: «Anualidad $1,999 · o en parcialidades»', cap:'Llegó el Buen Fin de LUCA 🛒 Del 13 al 17 de noviembre.', pauta:'Pendiente de definir', wa:'Hola LUCA 👋 Vi la promo del Buen Fin y quiero aprovecharla.', st:'Por aprobar', thread:[], nota:'Si Alex autoriza un número distinto, se cambia en BF-01, BF-02, BF-03 y BF-05.'},
-    {id:'BF-02', sem:'Buen Fin', f:'2026-11-14', h:'11:00', pilar:'LUCA Pro · Oferta · BOFU', canal:'LinkedIn + FB + IG', fmt:'Carrusel 4 slides 4:5', hook:'El Buen Fin de tu despacho', guia:'La oferta de Pro explicada para que el contador decida sin tener que preguntar.', cont:'SLIDE 2 «LUCA Pro: anualidad de $1,999 de contado, o en parcialidades.»', cap:'Buen Fin para despachos 🧾 Del 13 al 17 de noviembre.', pauta:'Pendiente de definir', wa:'Hola LUCA 👋 Quiero LUCA Pro con la promo del Buen Fin.', st:'Por aprobar', thread:[], nota:''},
-    {id:'BF-03', sem:'Buen Fin', f:'2026-11-15', h:'13:00', pilar:'LUCA Lite · Oferta · BOFU', canal:'IG + FB + TikTok', fmt:'Reel 25 s 9:16', hook:'Tu carrito del Buen Fin… ¿y lo de tu negocio?', guia:'Humor de Buen Fin: aprovechamos las ofertas para todo menos para lo que hace crecer el negocio.', cont:'0–4 s · «Tu carrito del Buen Fin:»\n12–16 s · «¿Y lo de tu negocio?»\n16–21 s · Grabación real de LUCA', cap:'Este Buen Fin aprovecha también para lo que sí te deja. 🛒', pauta:'Pendiente de definir', wa:'Hola LUCA 👋 Quiero LUCA Lite a $200 con la promo del Buen Fin.', st:'En proceso', thread:[], nota:'Falta grabación de pantalla real.'},
-    {id:'BF-04', sem:'Buen Fin', f:'2026-11-16', h:'09:00', pilar:'Lite + Pro · Objeciones · BOFU', canal:'IG + FB + LinkedIn', fmt:'Carrusel 4 slides 4:5', hook:'3 dudas que nos llegaron esta semana (y las respuestas) 👀', guia:'Resolver de frente las tres dudas que más llegan por WhatsApp.', cont:'«¿Tengo que firmar algo?» · «¿Esto sustituye a mi contador?» · «¿Sirve para facturar?»', cap:'Preguntas reales de esta semana, contestadas sin rodeos 👇', pauta:'Orgánica', wa:'Hola LUCA 👋 Tengo una duda antes de aprovechar la promo del Buen Fin.', st:'Por aprobar', thread:[], nota:''},
-    {id:'BF-05', sem:'Buen Fin', f:'2026-11-17', h:'19:30', pilar:'Lite + Pro · Oferta · BOFU', canal:'IG + FB + LinkedIn', fmt:'Estática 4:5', hook:'Hoy es el último día', guia:'Último día. Urgencia real y sencilla: cuenta regresiva, precios y una sola acción.', cont:'Arriba: «Hoy es el último día»\nAbajo: «Termina hoy a las 11:59 p. m.»', cap:'Hoy se acaba el Buen Fin de LUCA ⏳', pauta:'Pendiente de definir', wa:'Hola LUCA 👋 Quiero aprovechar hoy el último día del Buen Fin.', st:'Por aprobar', thread:[], nota:''},
+    {id:'ORG-22', f:'2026-11-09', h:'19:30', pilar:'LUCA Lite · Certidumbre y Control · TOFU', canal:'IG + FB', fmt:'Carrusel 4 slides 4:5', hook:'Cómo cierran el mes los que sí traen sus números claros 📋', guia:'Mostrar, sin drama, cómo se ve un cierre de mes ordenado. Tono de colega que comparte su método.', cont:'SLIDE 1 (PORTADA) «Cómo cierran el mes los que sí traen sus números claros 📋»', cap:'Cerrar el mes no es un día de caos: es una revisión de 10 minutos cuando tienes todo en un solo lugar. 📋', pauta:'Orgánica', wa:'Hola LUCA 👋 Quiero cerrar mi mes sin batallar. ¿Cómo activo mi prueba gratis?', st:'Publicado', thread:[], nota:''},
+    {id:'ORG-23', f:'2026-11-11', h:'09:00', pilar:'LUCA Pro · Eficiencia y Practicidad · MOFU', canal:'FB + IG', fmt:'Carrusel 4 slides 4:5', hook:'Qué cambia cuando tus clientes dejan de estar en 5 lugares distintos', guia:'Explicar en concreto qué cambia en el día a día del despacho. Corporativo, claro y con captura real del tablero.', cont:'SLIDE 1 (PORTADA) «Qué cambia cuando tus clientes dejan de estar en 5 lugares distintos»', cap:'La información de tus clientes no está perdida. Está repartida. 🗂️', pauta:'Orgánica', wa:'Hola LUCA 👋 Tengo un despacho y quiero ver cómo funciona LUCA Pro con mis clientes.', st:'Publicado', thread:[], nota:''},
+    {id:'ORG-24', f:'2026-11-12', h:'13:00', pilar:'Lite + Pro · Oferta · MOFU', canal:'IG + FB + LinkedIn', fmt:'Estática 4:5', hook:'Mañana empieza. El Buen Fin de LUCA · 13 al 17 de noviembre', guia:'Recordatorio del arranque. Fecha enorme, una sola acción (escribir por WhatsApp), sin revelar los números todavía.', cont:'Arriba: «Mañana empieza.»\nCentro: «El Buen Fin de LUCA · 13 al 17 de noviembre»', cap:'Mañana arranca el Buen Fin de LUCA y dura hasta el 17. 🛒', pauta:'Orgánica', wa:'BUEN FIN 🛒 Quiero que me avisen en cuanto arranque la promoción de LUCA.', st:'Programado', thread:[], nota:''},
+    {id:'BF-01', f:'2026-11-13', h:'09:00', pilar:'Lite + Pro · Oferta · BOFU', canal:'IG + FB + LinkedIn', fmt:'Estática 4:5', hook:'Empieza el Buen Fin de LUCA', guia:'Arranque de la promoción: los números al frente y la vigencia muy visible.', cont:'Bloque Lite: «$249» tachado → «$200 al mes»\nBloque Pro: «Anualidad $1,999 · o en parcialidades»', cap:'Llegó el Buen Fin de LUCA 🛒 Del 13 al 17 de noviembre.', pauta:'Pendiente de definir', wa:'Hola LUCA 👋 Vi la promo del Buen Fin y quiero aprovecharla.', st:'Por aprobar', thread:[], nota:'Si Alex autoriza un número distinto, se cambia en BF-01, BF-02, BF-03 y BF-05.'},
+    {id:'BF-02', f:'2026-11-14', h:'11:00', pilar:'LUCA Pro · Oferta · BOFU', canal:'LinkedIn + FB + IG', fmt:'Carrusel 4 slides 4:5', hook:'El Buen Fin de tu despacho', guia:'La oferta de Pro explicada para que el contador decida sin tener que preguntar.', cont:'SLIDE 2 «LUCA Pro: anualidad de $1,999 de contado, o en parcialidades.»', cap:'Buen Fin para despachos 🧾 Del 13 al 17 de noviembre.', pauta:'Pendiente de definir', wa:'Hola LUCA 👋 Quiero LUCA Pro con la promo del Buen Fin.', st:'Por aprobar', thread:[], nota:''},
+    {id:'BF-03', f:'2026-11-15', h:'13:00', pilar:'LUCA Lite · Oferta · BOFU', canal:'IG + FB + TikTok', fmt:'Reel 25 s 9:16', hook:'Tu carrito del Buen Fin… ¿y lo de tu negocio?', guia:'Humor de Buen Fin: aprovechamos las ofertas para todo menos para lo que hace crecer el negocio.', cont:'0–4 s · «Tu carrito del Buen Fin:»\n12–16 s · «¿Y lo de tu negocio?»\n16–21 s · Grabación real de LUCA', cap:'Este Buen Fin aprovecha también para lo que sí te deja. 🛒', pauta:'Pendiente de definir', wa:'Hola LUCA 👋 Quiero LUCA Lite a $200 con la promo del Buen Fin.', st:'En proceso', thread:[], nota:'Falta grabación de pantalla real.'},
+    {id:'BF-04', f:'2026-11-16', h:'09:00', pilar:'Lite + Pro · Objeciones · BOFU', canal:'IG + FB + LinkedIn', fmt:'Carrusel 4 slides 4:5', hook:'3 dudas que nos llegaron esta semana (y las respuestas) 👀', guia:'Resolver de frente las tres dudas que más llegan por WhatsApp.', cont:'«¿Tengo que firmar algo?» · «¿Esto sustituye a mi contador?» · «¿Sirve para facturar?»', cap:'Preguntas reales de esta semana, contestadas sin rodeos 👇', pauta:'Orgánica', wa:'Hola LUCA 👋 Tengo una duda antes de aprovechar la promo del Buen Fin.', st:'Por aprobar', thread:[], nota:''},
+    {id:'BF-05', f:'2026-11-17', h:'19:30', pilar:'Lite + Pro · Oferta · BOFU', canal:'IG + FB + LinkedIn', fmt:'Estática 4:5', hook:'Hoy es el último día', guia:'Último día. Urgencia real y sencilla: cuenta regresiva, precios y una sola acción.', cont:'Arriba: «Hoy es el último día»\nAbajo: «Termina hoy a las 11:59 p. m.»', cap:'Hoy se acaba el Buen Fin de LUCA ⏳', pauta:'Pendiente de definir', wa:'Hola LUCA 👋 Quiero aprovechar hoy el último día del Buen Fin.', st:'Por aprobar', thread:[], nota:''},
   ],
 };
-
-/* Campañas: nombres y presupuestos de TaxBox tomados de la parrilla; métricas de ejemplo */
 const CAMPAIGNS = {
   taxbox: [
     {pl:'Meta', name:'C1 Producto · Mensajes WhatsApp', st:'Activa', budget:'$133/día', spend:1463, reach:48200, impr:96500, clicks:1930, conv:212},
@@ -383,30 +423,20 @@ const CAMPAIGNS = {
     {pl:'Google', name:'Search · Software contable', st:'Activa', budget:'$70/día', spend:770, reach:null, impr:9800, clicks:610, conv:38, sales:5, revenue:2500},
   ],
 };
-const ORGANIC = {
-  taxbox: {followers:9810, growth:520, prev:9290, er:4.1},
-  luca: {followers:6240, growth:310, prev:5930, er:3.6},
-};
-/* Reportes: cifras de ejemplo con la estructura que se usará */
+const ORGANIC = {taxbox:{followers:9810, growth:520, prev:9290, er:4.1}, luca:{followers:6240, growth:310, prev:5930, er:3.6}};
 const REPORTS = {
   taxbox: {
-    semanal: {period:'Semana 1 · 2 al 8 de noviembre', title:'Semana 1 de noviembre', kpis:[
-      {l:'Conversaciones', v:'96', d:'+18%', up:true, lead:true},
-      {l:'Costo por conversación', v:'$6.85', d:'−9%', up:true},
-      {l:'Alcance', v:'52,300', d:'+12%', up:true},
-      {l:'CTR', v:'2.1%', d:'+0.3 pts', up:true},
-      {l:'Seguidores nuevos', v:'+142', d:'+22%', up:true}],
+    semanal: {published:'9 nov', period:'Semana 1 · 2 al 8 de noviembre', title:'Semana 1 de noviembre', kpis:[
+      {l:'Conversaciones', v:'96', d:'+18%', up:true, lead:true}, {l:'Costo por conversación', v:'$6.85', d:'−9%', up:true},
+      {l:'Alcance', v:'52,300', d:'+12%', up:true}, {l:'CTR', v:'2.1%', d:'+0.3 pts', up:true}, {l:'Seguidores nuevos', v:'+142', d:'+22%', up:true}],
       summary:'Fue la mejor semana del trimestre en conversaciones. <mark>La intriga del Buen Fin ya está generando mensajes antes del lanzamiento.</mark>',
       good:['Las piezas con mensaje precargado de WhatsApp trajeron la mayoría de las conversaciones.','El público de nómina en C1 bajó su costo por conversación por segunda semana.'],
       fix:['C2 Empresas tiene pocas conversaciones: probaremos un mensaje más directo para RH.'],
       next:['Lanzar la oferta del Buen Fin el viernes 13.','Activar C4 Remarketing con quienes interactuaron con la intriga.','Subir C1 a $200/día del 13 al 17, si se aprueba.'],
       goal:'Meta de la semana: 140 conversaciones', trend:[52,58,61,70,74,81,96]},
-    mensual: {period:'Octubre 2026', title:'Octubre 2026', kpis:[
-      {l:'Conversaciones', v:'341', d:'+27%', up:true, lead:true},
-      {l:'Costo por conversación', v:'$7.40', d:'−11%', up:true},
-      {l:'Alcance', v:'186,000', d:'+15%', up:true},
-      {l:'CTR', v:'1.9%', d:'+0.2 pts', up:true},
-      {l:'Seguidores nuevos', v:'+512', d:'−4%', up:false}],
+    mensual: {published:'2 nov', period:'Octubre 2026', title:'Octubre 2026', kpis:[
+      {l:'Conversaciones', v:'341', d:'+27%', up:true, lead:true}, {l:'Costo por conversación', v:'$7.40', d:'−11%', up:true},
+      {l:'Alcance', v:'186,000', d:'+15%', up:true}, {l:'CTR', v:'1.9%', d:'+0.2 pts', up:true}, {l:'Seguidores nuevos', v:'+512', d:'−4%', up:false}],
       summary:'Octubre cerró con más conversaciones y a menor costo. <mark>El pilar de Producto concentra 8 de cada 10 conversaciones.</mark>',
       good:['Los reels de tendencia fueron el formato con más alcance orgánico.','C1 Producto mantuvo un costo estable todo el mes.'],
       fix:['El crecimiento de seguidores se frenó: sumaremos contenido guardable (checklists, tips).'],
@@ -414,30 +444,35 @@ const REPORTS = {
       goal:'Meta de noviembre: 420 conversaciones', trend:[210,236,268,341]},
   },
   luca: {
-    semanal: {period:'Semana 1 · 2 al 8 de noviembre', title:'Semana 1 de noviembre', kpis:[
-      {l:'Ventas (Lite + Pro)', v:'9', d:'+3', up:true, lead:true},
-      {l:'Costo por conversación', v:'$9.20', d:'−6%', up:true},
-      {l:'Alcance', v:'31,800', d:'+8%', up:true},
-      {l:'Tasa de conversión', v:'14%', d:'+2 pts', up:true},
-      {l:'ROAS', v:'4.6x', d:'+0.4', up:true}],
+    semanal: {published:null, period:'Semana 1 · 2 al 8 de noviembre', title:'Semana 1 de noviembre', kpis:[
+      {l:'Ventas (Lite + Pro)', v:'9', d:'+3', up:true, lead:true}, {l:'Costo por conversación', v:'$9.20', d:'−6%', up:true},
+      {l:'Alcance', v:'31,800', d:'+8%', up:true}, {l:'Tasa de conversión', v:'14%', d:'+2 pts', up:true}, {l:'ROAS', v:'4.6x', d:'+0.4', up:true}],
       summary:'LUCA Pro trae menos conversaciones, pero <mark>cada venta de Pro vale casi lo mismo que diez de Lite.</mark>',
       good:['El carrusel de cierre de mes (ORG-22) fue el más guardado.','Los despachos respondieron bien al mensaje de «un solo panel».'],
       fix:['Las conversaciones de Lite tardan en cerrar: proponemos respuesta automática con prueba gratis.'],
       next:['Lanzar el Buen Fin el 13 con BF-01.','Grabaciones reales de pantalla para BF-03.','Confirmar por escrito los precios de la promo.'],
       goal:'Meta de la semana: 15 ventas', trend:[3,4,4,5,6,6,9]},
-    mensual: null,
+    mensual: {published:'2 nov', period:'Octubre 2026', title:'Octubre 2026', kpis:[
+      {l:'Ventas (Lite + Pro)', v:'27', d:'+35%', up:true, lead:true}, {l:'Costo por conversación', v:'$9.80', d:'−4%', up:true},
+      {l:'Alcance', v:'118,400', d:'+9%', up:true}, {l:'Tasa de conversión', v:'12%', d:'+1 pt', up:true}, {l:'ROAS', v:'4.1x', d:'+0.6', up:true}],
+      summary:'Octubre fue el mejor mes en ventas. <mark>LUCA Pro ya aporta más de la mitad del ingreso por pauta.</mark>',
+      good:['Los carruseles para despachos tuvieron el mejor CTR del mes.','La prueba gratis bajó la objeción de «¿y si no me sirve?».'],
+      fix:['Lite atrae mucho mensaje curioso: filtraremos con un mensaje precargado más específico.'],
+      next:['Buen Fin del 13 al 17 para Lite y Pro.','Lanzar el programa Partner en LinkedIn.','Medir cuántas pruebas gratis terminan en pago.'],
+      goal:'Meta de noviembre: 35 ventas', trend:[14,17,20,27]},
   },
 };
 
 /* ============================================================
-   ESTADO
+   ESTADO Y AYUDAS
    ============================================================ */
 const TODAY = '2026-11-12';
-const state = {user:null, view:'inicio', client:'all', pmode:'tabla', open:null, platform:'Todas', rmode:'semanal', modal:null, loginErr:''};
+const state = {user:null, view:'inicio', brand:'all', pmode:'tabla', open:null, platform:'Todas', rmode:'semanal', modal:null, loginErr:''};
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const cname = id => (CLIENTS.find(c => c.id === id) || {}).name || '';
+const B = id => BRANDS.find(b => b.id === id) || {};
+const bname = id => B(id).name || '';
 const MONTHS = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
 const DAYS = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
 const d8 = iso => { const [y,m,d] = iso.split('-').map(Number); return new Date(y, m-1, d); };
@@ -449,65 +484,83 @@ const int = n => Math.round(n).toLocaleString('es-MX');
 const role = () => state.user?.role;
 const isClient = () => role() === 'cliente';
 const isStaff = () => role() === 'admin' || role() === 'equipo';
+const ARROW = '<span class="dot" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 9l6-6M4 3h5v5"/></svg></span>';
+const primary = (label, attrs) => `<button class="btn btn-primary" ${attrs}>${label}${ARROW}</button>`;
+
+function allowedBrands(u = state.user){
+  if (!u) return [];
+  if (u.role !== 'cliente') return BRANDS;
+  if (u.brands) return BRANDS.filter(b => u.brands.includes(b.id));
+  return BRANDS.filter(b => b.client === u.client);
+}
+const allowedIds = () => allowedBrands().map(b => b.id);
+const MULTI_VIEWS = ['inicio','mis','tablero','backlog'];
+function currentBrand(){ return state.brand === 'all' ? allowedIds()[0] : state.brand; }
+function scope(){ return state.brand === 'all' ? allowedIds() : [state.brand]; }
 
 function toast(msg){
   const old = $('.toast'); if (old) old.remove();
   const t = document.createElement('div'); t.className = 'toast'; t.setAttribute('role','status'); t.textContent = msg;
-  document.body.appendChild(t); setTimeout(() => t.remove(), 3200);
+  document.body.appendChild(t); setTimeout(() => t.remove(), 3400);
 }
 
 /* ============================================================
-   ÍCONOS
+   NAVEGACIÓN POR ROL
    ============================================================ */
 const I = {
-  inicio:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></svg>',
-  tablero:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="1.5"/><rect x="10" y="4" width="5" height="10" rx="1.5"/><rect x="17" y="4" width="4" height="13" rx="1.5"/></svg>',
+  inicio:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>',
+  mis:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg>',
+  tablero:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="5" height="16" rx="2"/><rect x="10" y="4" width="5" height="10" rx="2"/><rect x="17" y="4" width="4" height="13" rx="2"/></svg>',
   backlog:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg>',
-  parrilla:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M8 13h2M14 13h2M8 17h2"/></svg>',
+  parrilla:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2v4M16 2v4M8 13h2M14 13h2M8 17h2"/></svg>',
   campanas:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1zM16 8.5a5 5 0 0 1 0 7M19 5.5a9 9 0 0 1 0 13"/></svg>',
   reportes:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
   accesos:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
 };
-const LOGO = '<svg viewBox="0 0 40 40" aria-hidden="true"><rect x="2" y="2" width="36" height="36" rx="9" fill="none" stroke="currentColor" stroke-width="2"/><text x="19" y="26" text-anchor="middle" font-family="Bricolage Grotesque, Segoe UI, sans-serif" font-weight="800" font-size="15" fill="currentColor">JP</text><circle cx="34" cy="6" r="4.5" fill="var(--signal)"/></svg>';
-const brand = () => `<div class="brand">${LOGO}<div><b>JORGE PEÑALOZA</b><span>MKT · Growth Marketing</span></div></div>`;
+function navFor(r){
+  if (r === 'cliente') return [['inicio','Mi cuenta'],['tablero','Avance'],['parrilla','Parrilla'],['campanas','Campañas'],['reportes','Reportes']];
+  const base = [['inicio','Panorama'],['mis','Mis tareas'],['tablero','Sprint'],['backlog','Backlog'],['parrilla','Parrilla'],['campanas','Campañas'],['reportes','Reportes']];
+  if (r === 'equipo') return [base[1], base[0], ...base.slice(2)];
+  return [...base, ['accesos','Accesos']];
+}
+const homeFor = r => r === 'equipo' ? 'mis' : 'inicio';
+const logoHTML = () => `<div class="logo"><span class="logo-mark">JP</span><span class="logo-txt">Jorge Peñaloza <small>MKT</small></span></div>`;
 
 /* ============================================================
    LOGIN
    ============================================================ */
 function viewLogin(){
+  const tour = [['jorge','Administrador · Jorge'],['diseno','Colaborador · Diseño'],['community','Colaborador · Community'],['alphabrand','Cliente · AlphaBrand'],['ilse','Cliente · Ilse Cosio']];
   return `<div class="login">
     <section class="login-brand">
-      ${brand()}
-      <div style="display:grid;gap:18px">
-        <h1>Todas tus cuentas, <em>un solo lugar.</em></h1>
-        <p>El espacio de trabajo de Jorge Peñaloza MKT: sprint del equipo, parrilla con aprobación del cliente, campañas y reportes.</p>
+      ${logoHTML()}
+      <div style="display:grid;gap:22px">
+        <span class="tag">Hub de cuentas</span>
+        <h1>Todo lo de tus marcas, en <span class="hl">un solo lugar</span>.</h1>
+        <p>Aquí planeamos la semana, aprobamos la parrilla y vemos los resultados. Sin correos perdidos ni hojas sueltas.</p>
         <ul class="login-points">
-          <li>SCRUM: backlog, sprints, tablero y retrospectiva</li>
-          <li>Parrilla con estatus y comentarios del cliente</li>
+          <li>Sprint semanal con tablero, backlog y retro</li>
+          <li>Parrilla que apruebas pieza por pieza</li>
           <li>Campañas de Meta, TikTok Ads y Google Ads</li>
-          <li>Reportes semanales y mensuales en una pantalla</li>
+          <li>Reportes semanales y mensuales, cortos y claros</li>
         </ul>
       </div>
-      <span class="mono" style="font-size:11px;color:var(--on-ink-muted)">Acceso solo con usuario y contraseña asignados</span>
+      <span class="small" style="color:var(--on-night-muted)">Solo entras con el usuario y la contraseña que te da Jorge.</span>
     </section>
-    <section class="login-form-wrap">
+    <section class="login-side">
       <form class="login-form" id="login-form" novalidate>
-        <div><span class="eyebrow">Iniciar sesión</span><h2>Bienvenido de vuelta</h2></div>
-        <div class="field"><label for="lg-user">Usuario</label><input class="input" id="lg-user" autocomplete="username" placeholder="ej. jorge"></div>
+        <span class="tag">Iniciar sesión</span>
+        <h2>Entra a tu espacio</h2>
+        <div class="field"><label for="lg-user">Usuario</label><input class="input" id="lg-user" autocomplete="username" placeholder="ej. alphabrand"></div>
         <div class="field"><label for="lg-pass">Contraseña</label><input class="input" id="lg-pass" type="password" autocomplete="current-password" placeholder="••••••••"></div>
         <div class="error" id="lg-err">${esc(state.loginErr)}</div>
-        <button class="btn btn-primary" type="submit">Entrar</button>
-        <span class="muted" style="font-size:12px">¿Olvidaste tu contraseña? Jorge puede restablecerla desde Accesos.</span>
-        <div class="demo-box">
-          <span class="eyebrow">Prototipo · entra con un perfil</span>
-          <span class="muted" style="font-size:12.5px">Cada perfil ve cosas distintas. Contraseña de prueba: <b class="mono">demo</b></span>
-          <div class="demo-row">
-            <button type="button" class="btn btn-sm" data-action="login-as" data-user="jorge">Jorge · Admin</button>
-            <button type="button" class="btn btn-sm" data-action="login-as" data-user="diseno">Diseño · Equipo</button>
-            <button type="button" class="btn btn-sm" data-action="login-as" data-user="taxbox">Cliente TaxBox</button>
-          </div>
-        </div>
+        ${primary('Entrar','type="submit"')}
+        <span class="muted small">¿Olvidaste tu contraseña? Escríbele a Jorge y te manda una nueva.</span>
       </form>
+      <div class="tour">
+        <div><span class="eyebrow">Recorrido del prototipo</span><p class="muted small" style="margin-top:4px">Salta directo a cualquier pantalla de cada perfil. Contraseña de prueba: <b>demo</b></p></div>
+        ${tour.map(([u,label]) => { const usr = USERS.find(x=>x.user===u); return `<div class="tour-row"><b>${label}</b><div class="tour-links">${navFor(usr.role).map(([v,l]) => `<button type="button" data-action="jump" data-user="${u}" data-view="${v}">${l}</button>`).join('')}</div></div>`; }).join('')}
+      </div>
     </section>
   </div>`;
 }
@@ -515,41 +568,36 @@ function viewLogin(){
 /* ============================================================
    SHELL
    ============================================================ */
-function navItems(){
-  const pend = pendingCount();
-  if (isClient()) return [
-    ['inicio','Mi cuenta'],['tablero','Avance'],['parrilla','Parrilla', pend],['campanas','Campañas'],['reportes','Reportes']];
-  const items = [['inicio','Panorama'],['tablero','Sprint'],['backlog','Backlog'],['parrilla','Parrilla'],['campanas','Campañas'],['reportes','Reportes']];
-  if (role() === 'admin') items.push(['accesos','Accesos']);
-  return items;
-}
-function pendingCount(){
-  const c = isClient() ? state.user.client : null;
-  const list = c ? (PARRILLA[c] || []) : Object.values(PARRILLA).flat();
-  return list.filter(r => r.st === 'Por aprobar').length;
+function pendingCount(){ return allowedIds().reduce((a,id) => a + (PARRILLA[id]||[]).filter(r => r.st === 'Por aprobar').length, 0); }
+function picker(){
+  const brands = allowedBrands();
+  if (brands.length === 1) return `<div class="picker"><span class="mono-tile">${brands[0].ini}</span><div><b>${esc(brands[0].name)}</b><div class="muted small">Portal de cliente</div></div></div>`;
+  const multi = MULTI_VIEWS.includes(state.view);
+  const groups = CLIENTS.map(c => [c, brands.filter(b => b.client === c.id)]).filter(([,bs]) => bs.length);
+  return `<div class="picker"><label class="eyebrow" for="brand-sel">Marca</label>
+    <select class="input" id="brand-sel" data-change="brand">
+      ${multi ? `<option value="all" ${state.brand==='all'?'selected':''}>${isClient()?'Todas mis marcas':'Todas las marcas'}</option>` : ''}
+      ${groups.map(([c,bs]) => `<optgroup label="${esc(c.name)}">${bs.map(b => `<option value="${b.id}" ${state.brand===b.id?'selected':''}>${esc(b.name)}</option>`).join('')}</optgroup>`).join('')}
+    </select></div>`;
 }
 function shell(content){
-  const u = state.user;
-  const needsClient = ['parrilla','campanas','reportes'].includes(state.view);
-  const pick = isStaff() ? `<div class="client-pick"><label class="eyebrow" for="client-sel">Cuenta</label>
-      <select class="input" id="client-sel" data-change="client">
-        ${needsClient ? '' : `<option value="all" ${state.client==='all'?'selected':''}>Todas las cuentas</option>`}
-        ${CLIENTS.map(c => `<option value="${c.id}" ${state.client===c.id?'selected':''}>${esc(c.name)}</option>`).join('')}
-      </select></div>`
-    : `<div class="client-pick"><span class="logo-tile">${esc(u.ini)}</span><div><b>${esc(cname(u.client))}</b><div class="muted" style="font-size:12px">Portal de cliente</div></div></div>`;
+  const u = state.user, pend = pendingCount();
   return `<div class="shell">
     <aside class="rail">
-      ${brand()}
+      ${logoHTML()}
       <nav class="nav" aria-label="Secciones">
-        ${navItems().map(([id,label,badge]) => `<button data-action="nav" data-view="${id}" ${state.view===id?'aria-current="page"':''}>${I[id]}<span>${label}</span>${badge?`<span class="badge">${badge}</span>`:''}</button>`).join('')}
+        ${navFor(u.role).map(([id,label]) => { const badge = id==='parrilla' && isClient() && pend ? pend : 0;
+          return `<button data-action="nav" data-view="${id}" ${state.view===id?'aria-current="page"':''}>${I[id]}<span>${label}</span>${badge?`<span class="badge">${badge}</span>`:''}</button>`; }).join('')}
       </nav>
       <div class="rail-foot">
-        <div class="me"><span class="av ${u.ini}">${esc(u.ini)}</span><div><b>${esc(u.name)}</b><span>${{admin:'Administrador',equipo:'Equipo',cliente:'Cliente'}[u.role]}</span></div></div>
+        <div class="me"><span class="av">${esc(u.ini)}</span><div class="me-txt"><b>${esc(u.name)}</b><span>${ROLE_L[u.role]}</span></div></div>
         <button class="btn btn-sm" data-action="logout">Cerrar sesión</button>
       </div>
     </aside>
     <main class="main">
-      <div class="topbar">${pick}<span class="proto-note">Prototipo · cifras de ejemplo</span></div>
+      <div class="topbar">${picker()}
+        <div class="topbar-end"><div class="viewas"><label for="as-sel">Ver como</label><select id="as-sel" data-change="as-user">${USERS.map(x => `<option value="${x.user}" ${x.user===u.user?'selected':''}>${esc(x.name)} · ${ROLE_L[x.role]}</option>`).join('')}</select></div></div>
+      </div>
       ${content}
     </main>
   </div>
@@ -557,225 +605,256 @@ function shell(content){
 }
 
 /* ============================================================
-   INICIO
+   PANORAMA (admin / colaborador)
    ============================================================ */
-function sprintStats(list){
-  const total = list.reduce((a,t) => a + t.pts, 0);
-  const done = list.filter(t => t.st === 'done').reduce((a,t) => a + t.pts, 0);
+function stats(list){
+  const total = list.reduce((a,t) => a + t.pts, 0), done = list.filter(t => t.st === 'done').reduce((a,t) => a + t.pts, 0);
   return {total, done, pct: total ? Math.round(done/total*100) : 0, n:list.length, ndone:list.filter(t=>t.st==='done').length};
+}
+function brandCard(b){
+  const ts = stats(TASKS.filter(t => t.c === b.id));
+  const p = (PARRILLA[b.id]||[]).filter(r => r.st === 'Por aprobar').length;
+  const ca = (CAMPAIGNS[b.id]||[]).filter(x => x.st === 'Activa').length;
+  return `<button class="ccard" data-action="open-brand" data-brand="${b.id}">
+    <div class="ccard-head"><span class="mono-tile">${b.ini}</span><div><h4>${esc(b.name)}</h4><div class="sub">${esc(b.sector)}</div></div></div>
+    <div><div class="bar"><i style="width:${ts.pct}%"></i></div><div class="muted small" style="margin-top:4px">${ts.ndone} de ${ts.n} tareas de la semana</div></div>
+    <div class="cstats"><div>Tareas<b>${ts.n}</b></div><div class="${p?'warn':''}">Por aprobar<b>${p}</b></div><div>Campañas<b>${ca}</b></div></div>
+  </button>`;
 }
 function viewInicio(){
   if (isClient()) return viewInicioCliente();
-  const s = sprintStats(TASKS);
-  const pend = Object.values(PARRILLA).flat().filter(r => r.st === 'Por aprobar').length;
-  const chg = Object.entries(PARRILLA).flatMap(([c,rows]) => rows.filter(r => r.st === 'Cambios').map(r => ({...r, c})));
-  const rev = TASKS.filter(t => t.st === 'review');
-  const camps = Object.values(CAMPAIGNS).flat().filter(c => c.st === 'Activa').length;
+  const ids = scope(), tasks = TASKS.filter(t => ids.includes(t.c)), s = stats(tasks);
+  const rows = ids.flatMap(id => (PARRILLA[id]||[]).map(r => ({...r, c:id})));
+  const pend = rows.filter(r => r.st === 'Por aprobar').length, chg = rows.filter(r => r.st === 'Cambios');
+  const rev = tasks.filter(t => t.st === 'review');
+  const camps = ids.flatMap(id => CAMPAIGNS[id]||[]).filter(c => c.st === 'Activa').length;
   return `
-  <div class="page-head"><div><span class="eyebrow">Jueves 12 de noviembre · Sprint 46, día 4 de 10</span><h1>Panorama de cuentas</h1>
-    <p>Lo que se mueve hoy en las 8 cuentas. Toca una cuenta para ver su sprint.</p></div></div>
+  <div class="page-head"><div><span class="tag">Jueves 12 de noviembre · Sprint 46, día 4 de 5</span><h1>Panorama</h1>
+    <p>Lo que se mueve hoy en todas las marcas. Toca una marca para ver su semana.</p></div></div>
   <div class="kpis">
-    <div class="kpi lead"><span class="k-label">Puntos completados</span><span class="k-val">${s.done}<span class="muted" style="font-size:16px"> / ${s.total}</span></span><span class="k-sub">${s.pct}% del sprint</span></div>
-    <div class="kpi"><span class="k-label">Tareas del sprint</span><span class="k-val">${s.n}</span><span class="k-sub">${s.ndone} hechas · ${rev.length} en revisión</span></div>
+    <div class="kpi lead"><span class="k-label">Puntos completados</span><span class="k-val">${s.done} / ${s.total}</span><span class="k-sub">${s.pct}% del sprint</span></div>
+    <div class="kpi"><span class="k-label">Tareas de la semana</span><span class="k-val">${s.n}</span><span class="k-sub">${s.ndone} hechas · ${rev.length} en revisión</span></div>
     <div class="kpi"><span class="k-label">Piezas por aprobar</span><span class="k-val">${pend}</span><span class="k-sub">esperando al cliente</span></div>
-    <div class="kpi"><span class="k-label">Cambios solicitados</span><span class="k-val ${chg.length?'down':''}">${chg.length}</span><span class="k-sub">por atender</span></div>
+    <div class="kpi"><span class="k-label">Cambios pedidos</span><span class="k-val ${chg.length?'down':''}">${chg.length}</span><span class="k-sub">por atender</span></div>
     <div class="kpi"><span class="k-label">Campañas activas</span><span class="k-val">${camps}</span><span class="k-sub">Meta · TikTok · Google</span></div>
   </div>
-
-  <div class="section-title"><h2>Requiere atención</h2></div>
-  <div class="panel attn">
-    ${chg.map(r => `<div class="attn-row"><span class="chip" style="--c:${P_COLOR['Cambios']}">Cambios</span><div class="grow"><b>${esc(cname(r.c))} · ${r.id}</b> <span class="muted">«${esc(r.thread.at(-1)?.t || '')}»</span></div><button class="btn btn-sm" data-action="goto-piece" data-client="${r.c}" data-id="${r.id}">Ver pieza</button></div>`).join('')}
-    ${rev.map(t => `<div class="attn-row"><span class="chip" style="--c:var(--blue)">En revisión</span><div class="grow"><b>${esc(cname(t.c))}</b> · ${esc(t.title)}</div><span class="av ${t.who}">${t.who}</span></div>`).join('')}
+  <div class="section-title"><h2>Necesita tu atención</h2></div>
+  <div class="panel list">
+    ${chg.map(r => `<div class="list-row"><span class="chip" style="--c:${P_COLOR['Cambios']}">Cambios</span><div class="grow"><b>${esc(bname(r.c))} · ${r.id}</b> <span class="muted">«${esc(r.thread.at(-1)?.t || '')}»</span></div><button class="btn btn-sm" data-action="goto-piece" data-brand="${r.c}" data-id="${r.id}">Ver pieza</button></div>`).join('')}
+    ${rev.map(t => `<div class="list-row"><span class="chip" style="--c:var(--accent-text)">En revisión</span><div class="grow"><b>${esc(bname(t.c))}</b> · ${esc(t.title)}</div><button class="btn btn-sm" data-action="open-task" data-task="${t.id}">Abrir</button></div>`).join('')}
+    ${!chg.length && !rev.length ? '<div class="empty"><h3>Nada pendiente por ahora</h3></div>' : ''}
   </div>
-
-  <div class="section-title"><h2>Cuentas</h2><span class="muted mono" style="font-size:12px">${CLIENTS.length} de 10 previstas</span></div>
-  <div class="clients">
-    ${CLIENTS.map(c => {
-      const ts = sprintStats(TASKS.filter(t => t.c === c.id));
-      const p = (PARRILLA[c.id]||[]).filter(r => r.st === 'Por aprobar').length;
-      const ca = (CAMPAIGNS[c.id]||[]).filter(x => x.st === 'Activa').length;
-      return `<button class="ccard" data-action="open-client" data-client="${c.id}">
-        <div class="ccard-head"><span class="logo-tile">${c.ini}</span><div><h3>${esc(c.name)}</h3><div class="sector">${esc(c.sector)}</div></div></div>
-        <div><div class="bar"><i style="width:${ts.pct}%"></i></div><div class="mono muted" style="font-size:11px;margin-top:4px">${ts.done}/${ts.total} pts del sprint</div></div>
-        <div class="ccard-stats"><div>Tareas<b>${ts.n}</b></div><div class="${p?'warn':''}">Por aprobar<b>${p}</b></div><div>Campañas<b>${ca}</b></div></div>
-      </button>`; }).join('')}
-  </div>`;
+  ${CLIENTS.map(c => { const bs = BRANDS.filter(b => b.client === c.id && ids.includes(b.id)); if (!bs.length) return '';
+    return `<div class="group-head"><h3>${esc(c.name)}</h3><span class="chip" style="--c:var(--muted)">${bs.length} ${bs.length===1?'marca':'marcas'}</span><span class="muted small">${esc(c.note)}</span></div><div class="cards">${bs.map(brandCard).join('')}</div>`; }).join('')}`;
 }
 function viewInicioCliente(){
-  const c = state.user.client;
-  const rows = PARRILLA[c] || [];
+  const ids = scope(), u = state.user;
+  const rows = ids.flatMap(id => (PARRILLA[id]||[]).map(r => ({...r, c:id})));
   const pend = rows.filter(r => r.st === 'Por aprobar');
-  const ts = sprintStats(TASKS.filter(t => t.c === c));
-  const r = REPORTS[c]?.semanal;
+  const ts = stats(TASKS.filter(t => ids.includes(t.c)));
+  const rep = ids.map(id => REPORTS[id]?.semanal).find(r => r?.published);
   return `
-  <div class="page-head"><div><span class="eyebrow">Jueves 12 de noviembre</span><h1>Hola, equipo ${esc(cname(c))}</h1>
-    <p>Aquí ves en qué estamos trabajando, qué necesita tu aprobación y cómo van los resultados.</p></div></div>
+  <div class="page-head"><div><span class="tag">Jueves 12 de noviembre</span><h1>Hola, ${esc(u.name)}</h1>
+    <p>Aquí ves en qué estamos trabajando, qué necesita tu visto bueno y cómo van los resultados.</p></div></div>
   <div class="kpis">
     <div class="kpi lead"><span class="k-label">Piezas por aprobar</span><span class="k-val">${pend.length}</span><span class="k-sub">de ${rows.length} en la parrilla</span></div>
-    <div class="kpi"><span class="k-label">Avance de la quincena</span><span class="k-val">${ts.pct}%</span><span class="k-sub">${ts.ndone} de ${ts.n} entregables</span></div>
-    ${r ? `<div class="kpi"><span class="k-label">${r.kpis[0].l} · semana</span><span class="k-val">${r.kpis[0].v}</span><span class="k-sub up">${r.kpis[0].d} vs semana anterior</span></div>
-    <div class="kpi"><span class="k-label">${r.kpis[1].l}</span><span class="k-val">${r.kpis[1].v}</span><span class="k-sub up">${r.kpis[1].d}</span></div>` : ''}
+    <div class="kpi"><span class="k-label">Avance de la semana</span><span class="k-val">${ts.pct}%</span><span class="k-sub">${ts.ndone} de ${ts.n} entregables</span></div>
+    ${rep ? `<div class="kpi"><span class="k-label">${rep.kpis[0].l} · semana</span><span class="k-val">${rep.kpis[0].v}</span><span class="k-sub up">${rep.kpis[0].d} vs semana anterior</span></div>
+    <div class="kpi"><span class="k-label">${rep.kpis[1].l}</span><span class="k-val">${rep.kpis[1].v}</span><span class="k-sub up">${rep.kpis[1].d}</span></div>` : ''}
   </div>
-  <div class="section-title"><h2>Esperan tu aprobación</h2>${pend.length?`<button class="btn btn-sm btn-ok" data-action="nav" data-view="parrilla">Revisar parrilla</button>`:''}</div>
-  <div class="panel attn">
-    ${pend.length ? pend.map(p => `<div class="attn-row"><span class="mono muted" style="min-width:56px">${p.id}</span><div class="grow"><b>${esc(p.hook)}</b><span class="cell-sub">${fday(p.f)} ${fdate(p.f)} · ${esc(p.fmt)} · ${esc(p.canal)}</span></div><button class="btn btn-sm" data-action="goto-piece" data-client="${c}" data-id="${p.id}">Ver</button></div>`).join('')
-      : `<div class="empty"><h3>Todo al día</h3><span>No hay piezas pendientes de aprobación.</span></div>`}
-  </div>`;
+  <div class="section-title"><h2>Esperan tu visto bueno</h2>${pend.length?primary('Revisar parrilla','data-action="nav" data-view="parrilla"'):''}</div>
+  <div class="panel list">
+    ${pend.length ? pend.map(p => `<div class="list-row"><span class="muted small" style="min-width:52px;font-weight:700">${p.id}</span><div class="grow"><b>${esc(p.hook)}</b><span class="cell-sub">${esc(bname(p.c))} · ${fday(p.f)} ${fdate(p.f)} · ${esc(p.fmt)}</span></div><button class="btn btn-sm" data-action="goto-piece" data-brand="${p.c}" data-id="${p.id}">Ver</button></div>`).join('')
+      : `<div class="empty"><h3>Todo al día</h3><span>No hay piezas esperando tu aprobación.</span></div>`}
+  </div>
+  ${allowedBrands().length > 1 ? `<div class="section-title"><h2>Tus marcas</h2></div><div class="cards">${allowedBrands().filter(b=>ids.includes(b.id)).map(brandCard).join('')}</div>` : ''}`;
 }
 
 /* ============================================================
-   SPRINT (SCRUM)
+   MIS TAREAS (admin / colaborador)
+   ============================================================ */
+const NEXT = {todo:['doing','Empezar'], doing:['review','Mandar a revisión'], review:['done','Aprobar y cerrar']};
+function myRow(t){
+  const late = t.st !== 'done' && t.due < TODAY;
+  const nx = NEXT[t.st];
+  const canClose = t.st !== 'review' || role() === 'admin';
+  return `<div class="my-row"><span class="chip" style="--c:${{todo:'var(--muted)',doing:'var(--accent-text)',review:'var(--violet)',done:'var(--up)'}[t.st]}">${COLS.find(c=>c.id===t.st).label}</span>
+    <div class="grow"><h4>${esc(t.title)}</h4><span class="cell-sub">${esc(bname(t.c))} · <span class="${late?'late':''}">${late?'Atrasada · ':''}${fday(t.due)} ${fdate(t.due)}</span> · ${t.pts} pts</span></div>
+    ${nx ? `<button class="btn btn-sm ${t.st==='review'?'':'btn-dark'}" data-action="advance" data-id="${t.id}" ${canClose?'':'disabled title="Jorge aprueba las tareas en revisión"'}>${canClose?nx[1]:'Esperando a Jorge'}</button>` : ''}
+    <button class="btn btn-sm btn-ghost" data-action="open-task" data-task="${t.id}">Detalle</button></div>`;
+}
+function viewMis(){
+  const me = state.user.ini, ids = scope();
+  const mine = TASKS.filter(t => t.who === me && ids.includes(t.c));
+  const today = mine.filter(t => t.st !== 'done' && t.due <= TODAY), later = mine.filter(t => t.st !== 'done' && t.due > TODAY), done = mine.filter(t => t.st === 'done');
+  const s = stats(mine);
+  const rows = ids.flatMap(id => (PARRILLA[id]||[]).map(r => ({...r, c:id})));
+  let pieces = [], pTitle = '', pBtn = null;
+  if (me === 'DI'){ pieces = rows.filter(r => r.st === 'En proceso' || r.st === 'Cambios'); pTitle = 'Piezas por diseñar o corregir'; pBtn = ['to-approval','Mandar a aprobación']; }
+  if (me === 'CM'){ pieces = rows.filter(r => r.st === 'Autorizado'); pTitle = 'Piezas autorizadas por programar'; pBtn = ['schedule','Marcar programada']; }
+  if (me === 'JP'){ pieces = rows.filter(r => r.st === 'Cambios'); pTitle = 'Cambios que pidió el cliente'; }
+  return `
+  <div class="page-head"><div><span class="tag">Sprint 46 · semana del 9 al 13 de noviembre</span><h1>Mis tareas</h1>
+    <p>Lo que te toca esta semana. Avanza cada tarea con un clic y el tablero del equipo se actualiza solo.</p></div>
+    <div class="actions">${primary('Nueva tarea','data-action="m-newtask"')}</div></div>
+  <div class="kpis">
+    <div class="kpi lead"><span class="k-label">Tus puntos esta semana</span><span class="k-val">${s.done} / ${s.total}</span><span class="k-sub">${s.pct}% completado</span></div>
+    <div class="kpi"><span class="k-label">Para hoy o atrasadas</span><span class="k-val ${today.some(t=>t.due<TODAY)?'down':''}">${today.length}</span><span class="k-sub">jueves 12</span></div>
+    <div class="kpi"><span class="k-label">Resto de la semana</span><span class="k-val">${later.length}</span><span class="k-sub">hasta el viernes 13</span></div>
+  </div>
+  <div class="section-title"><h2>Para hoy</h2></div>
+  <div class="panel">${today.length ? today.map(myRow).join('') : '<div class="empty"><h3>Nada urgente hoy</h3></div>'}</div>
+  <div class="section-title"><h2>Resto de la semana</h2></div>
+  <div class="panel">${later.length ? later.map(myRow).join('') : '<div class="empty"><span>Sin más tareas esta semana.</span></div>'}</div>
+  ${pTitle ? `<div class="section-title"><h2>${pTitle}</h2><span class="muted small">desde la parrilla</span></div>
+  <div class="panel">${pieces.length ? pieces.map(r => `<div class="my-row"><span class="chip" style="--c:${P_COLOR[r.st]}">${r.st}</span><div class="grow"><h4>${r.id} · ${esc(r.hook)}</h4><span class="cell-sub">${esc(bname(r.c))} · ${fday(r.f)} ${fdate(r.f)} · ${esc(r.fmt)}</span></div>
+      ${pBtn ? `<button class="btn btn-sm btn-dark" data-action="${pBtn[0]}" data-brand="${r.c}" data-id="${r.id}">${pBtn[1]}</button>` : ''}<button class="btn btn-sm btn-ghost" data-action="goto-piece" data-brand="${r.c}" data-id="${r.id}">Ver pieza</button></div>`).join('') : '<div class="empty"><span>Nada pendiente aquí.</span></div>'}</div>` : ''}
+  <div class="section-title"><h2>Hechas esta semana</h2></div>
+  <div class="panel">${done.length ? done.map(myRow).join('') : '<div class="empty"><span>Todavía nada. ¡Vamos!</span></div>'}</div>`;
+}
+
+/* ============================================================
+   SPRINT SEMANAL
    ============================================================ */
 function burndown(list){
-  const total = list.reduce((a,t)=>a+t.pts,0) || 1;
-  const done = list.filter(t=>t.st==='done').reduce((a,t)=>a+t.pts,0);
-  const actual = [total, total - Math.round(done*.35), total - Math.round(done*.7), total - done];
-  const W=320,H=150,L=30,R=10,T=10,B=26, n=10;
-  const x = i => L + i*(W-L-R)/(n-1), y = v => T + (1 - v/total)*(H-T-B);
-  const ticks = [0, Math.round(total/2), total];
-  const days = ['9','10','11','12','13','16','17','18','19','20'];
+  const total = list.reduce((a,t)=>a+t.pts,0) || 1, done = list.filter(t=>t.st==='done').reduce((a,t)=>a+t.pts,0);
+  const actual = [total, total - Math.round(done*.3), total - Math.round(done*.65), total - done];
+  const W=320,H=150,L=30,R=12,T=12,Bt=26,n=5;
+  const x = i => L + i*(W-L-R)/(n-1), y = v => T + (1 - v/total)*(H-T-Bt);
+  const days = ['Lun 9','Mar 10','Mié 11','Jue 12','Vie 13'];
+  const F = 'font-family="Figtree, sans-serif"';
   return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Burndown: quedan ${total-done} de ${total} puntos">
-    ${ticks.map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${L-6}" y="${y(v)+3}" font-size="9" text-anchor="end" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${v}</text>`).join('')}
-    ${days.map((d,i)=>`<text x="${x(i)}" y="${H-8}" font-size="9" text-anchor="middle" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${d}</text>`).join('')}
-    <line x1="${x(0)}" y1="${y(total)}" x2="${x(n-1)}" y2="${y(0)}" stroke="var(--muted)" stroke-dasharray="4 4" stroke-width="1.5"/>
-    <path d="M${actual.map((v,i)=>`${x(i)},${y(v)}`).join(' L')} L${x(actual.length-1)},${y(0)} L${x(0)},${y(0)} Z" fill="var(--signal)" fill-opacity=".14"/>
-    <polyline points="${actual.map((v,i)=>`${x(i)},${y(v)}`).join(' ')}" fill="none" stroke="var(--signal)" stroke-width="2.5" stroke-linejoin="round"/>
-    <circle cx="${x(3)}" cy="${y(actual[3])}" r="4" fill="var(--signal)" stroke="var(--sheet)" stroke-width="2"/>
-    <text x="${x(3)+8}" y="${y(actual[3])-6}" font-size="10" fill="var(--text)" font-family="IBM Plex Mono, monospace">${total-done} pts</text>
+    ${[0, Math.round(total/2), total].map(v=>`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y(v)+3}" font-size="9" text-anchor="end" fill="var(--muted)" ${F}>${v}</text>`).join('')}
+    ${days.map((d,i)=>`<text x="${x(i)}" y="${H-8}" font-size="9" text-anchor="middle" fill="var(--muted)" ${F}>${d}</text>`).join('')}
+    <line x1="${x(0)}" y1="${y(total)}" x2="${x(n-1)}" y2="${y(0)}" stroke="var(--mist)" stroke-dasharray="4 4" stroke-width="1.5"/>
+    <path d="M${actual.map((v,i)=>`${x(i)},${y(v)}`).join(' L')} L${x(3)},${y(0)} L${x(0)},${y(0)} Z" fill="var(--accent)" fill-opacity=".15"/>
+    <polyline points="${actual.map((v,i)=>`${x(i)},${y(v)}`).join(' ')}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/>
+    <circle cx="${x(3)}" cy="${y(actual[3])}" r="4.5" fill="var(--accent)" stroke="var(--sheet)" stroke-width="2"/>
+    <text x="${x(3)-8}" y="${y(actual[3])-9}" font-size="10.5" font-weight="700" text-anchor="end" fill="var(--text)" ${F}>quedan ${total-done} pts</text>
   </svg>`;
 }
 function velocity(done){
-  const data = [['S43',34],['S44',38],['S45',41],['S46',done]];
-  const W=320,H=150,L=30,B=26,T=14, max=50, bw=40;
-  const y = v => T + (1 - v/max)*(H-T-B);
-  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Velocidad por sprint">
-    ${[0,25,50].map(v=>`<line x1="${L}" x2="${W-10}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y(v)+3}" font-size="9" text-anchor="end" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${v}</text>`).join('')}
-    ${data.map(([s,v],i)=>{const cx = L + 26 + i*68; const cur = i===3; return `<rect x="${cx}" y="${y(v)}" width="${bw}" height="${y(0)-y(v)}" rx="4" fill="${cur?'var(--signal)':'var(--ink)'}" fill-opacity="${cur?1:.8}"/><text x="${cx+bw/2}" y="${y(v)-5}" font-size="10" text-anchor="middle" fill="var(--text)" font-family="IBM Plex Mono, monospace">${v}</text><text x="${cx+bw/2}" y="${H-8}" font-size="9" text-anchor="middle" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${s}${cur?' · en curso':''}</text>`}).join('')}
+  const data = [['S43',22],['S44',25],['S45',27],['S46',done]];
+  const W=320,H=150,L=30,Bt=26,T=16,max=40,bw=40, F='font-family="Figtree, sans-serif"';
+  const y = v => T + (1 - v/max)*(H-T-Bt);
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Velocidad por sprint semanal">
+    ${[0,20,40].map(v=>`<line x1="${L}" x2="${W-10}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L-6}" y="${y(v)+3}" font-size="9" text-anchor="end" fill="var(--muted)" ${F}>${v}</text>`).join('')}
+    ${data.map(([s,v],i)=>{const cx = L + 22 + i*68, cur = i===3; return `<rect x="${cx}" y="${y(v)}" width="${bw}" height="${y(0)-y(v)}" rx="8" fill="${cur?'var(--accent)':'var(--text)'}" fill-opacity="${cur?1:.85}"/><text x="${cx+bw/2}" y="${y(v)-5}" font-size="10.5" font-weight="700" text-anchor="middle" fill="var(--text)" ${F}>${v}</text><text x="${cx+bw/2}" y="${H-8}" font-size="9" text-anchor="middle" fill="var(--muted)" ${F}>${s}${cur?' · en curso':''}</text>`}).join('')}
   </svg>`;
 }
 function taskCard(t){
   const ro = isClient();
-  return `<article class="card ${ro?'ro':''}" ${ro?'':'draggable="true"'} data-task="${t.id}" data-action="${ro?'':'open-task'}" tabindex="0">
-    <div class="card-top"><span class="ctag">${esc(cname(t.c))}</span>${ro?'':`<span class="pts">${t.pts} pts</span>`}</div>
+  return `<article class="card ${ro?'ro':''}" ${ro?'':'draggable="true" data-action="open-task" tabindex="0"'} data-task="${t.id}">
+    <div class="card-top"><span class="btag">${esc(bname(t.c))}</span>${ro?'':`<span class="pts">${t.pts} pts</span>`}</div>
     <h4>${esc(t.title)}</h4>
     <div class="card-foot"><span class="ttag" style="--c:${TYPE_COLOR[t.type]}">${t.type}</span><span class="due">${fdate(t.due)}</span><span class="av ${t.who}" title="${esc(TEAM[t.who].name)}">${t.who}</span></div>
   </article>`;
 }
 function viewTablero(){
-  const c = isClient() ? state.user.client : state.client;
-  const list = c === 'all' ? TASKS : TASKS.filter(t => t.c === c);
-  const s = sprintStats(list);
+  const ids = scope(), list = TASKS.filter(t => ids.includes(t.c)), s = stats(list);
   if (isClient()) {
-    return `<div class="page-head"><div><span class="eyebrow">Quincena del 9 al 22 de noviembre</span><h1>Avance de tu cuenta</h1>
-      <p>Lo que el equipo tiene en curso para ${esc(cname(c))}. Se actualiza en cuanto movemos una tarea.</p></div></div>
-      <div class="panel panel-pad" style="margin-bottom:16px"><div class="chart-title"><h3>${s.pct}% completado</h3><span class="mono muted">${s.ndone} de ${s.n} entregables</span></div><div class="bar" style="height:10px"><i style="width:${s.pct}%"></i></div></div>
-      <div class="board-wrap"><div class="board">${COLS.map(col => {const items = list.filter(t=>t.st===col.id); return `<section class="col"><div class="col-head"><span>${col.label}</span><span class="mono">${items.length}</span></div>${items.map(taskCard).join('')}</section>`}).join('')}</div></div>`;
+    return `<div class="page-head"><div><span class="tag">Semana del 9 al 13 de noviembre</span><h1>Avance de la semana</h1>
+      <p>Lo que el equipo trae en curso para ti. Se actualiza en cuanto movemos una tarea.</p></div></div>
+      <div class="panel panel-pad" style="margin-bottom:16px"><div class="chart-title"><h3>${s.pct}% completado</h3><span class="muted small">${s.ndone} de ${s.n} entregables</span></div><div class="bar" style="height:10px"><i style="width:${s.pct}%"></i></div></div>
+      <div class="board-wrap"><div class="board">${COLS.map(col => {const items = list.filter(t=>t.st===col.id); return `<section class="col"><div class="col-head"><span>${col.label}</span><span>${items.length}</span></div>${items.map(taskCard).join('')}</section>`}).join('')}</div></div>`;
   }
   return `
-  <div class="page-head"><div><span class="eyebrow">Sprint 46 · 9 al 22 de noviembre · 10 días hábiles</span><h1>Sprint del equipo</h1>
-    <p>Arrastra las tarjetas entre columnas. Toca una tarjeta para ver su detalle.</p></div>
-    <div class="actions"><button class="btn" data-action="nav" data-view="backlog">Ver backlog</button><button class="btn btn-primary" data-action="new-task">Nueva tarea</button></div></div>
+  <div class="page-head"><div><span class="tag">Sprint 46 · lunes 9 al viernes 13 de noviembre</span><h1>Sprint de la semana</h1>
+    <p>Arrastra las tarjetas entre columnas o tócalas para ver el detalle. El sprint cierra el viernes con review y retro.</p></div>
+    <div class="actions"><button class="btn" data-action="nav" data-view="backlog">Ver backlog</button>${primary('Nueva tarea','data-action="m-newtask"')}</div></div>
   <div class="sprint-head">
-    <div class="panel panel-pad sprint-goal"><span class="eyebrow">Objetivo del sprint</span>
-      <h2>Lanzar el Buen Fin en TaxBox y LUCA sin retrasos y cerrar reportes de octubre.</h2>
-      <div class="ceremonies">
-        <div><b>Planning</b><span>Lunes 9 · 10:00 · hecho</span></div>
-        <div><b>Daily</b><span>Lunes a viernes · 9:30 · 15 min</span></div>
-        <div><b>Review</b><span>Viernes 20 · 12:00</span></div>
-        <div><b>Retro</b><span>Viernes 20 · 13:00</span></div>
+    <div class="panel panel-pad goal"><span class="eyebrow">Objetivo de la semana</span>
+      <h2>Lanzar el Buen Fin en TaxBox y LUCA el viernes 13, sin pendientes del cliente.</h2>
+      <div class="cer">
+        <div><b>Planning</b><span>Lunes 9 · 9:30 · hecho</span></div>
+        <div><b>Daily</b><span>Martes a viernes · 9:30 · 15 min</span></div>
+        <div><b>Review</b><span>Viernes 13 · 12:00</span></div>
+        <div><b>Retro</b><span>Viernes 13 · 12:45</span></div>
       </div></div>
-    <div class="panel panel-pad"><div class="chart-title"><h3>Burndown</h3><span class="mono muted" style="font-size:11px">— ideal · real</span></div>${burndown(list)}</div>
-    <div class="panel panel-pad"><div class="chart-title"><h3>Velocidad</h3><span class="mono muted" style="font-size:11px">pts completados</span></div>${velocity(sprintStats(TASKS).done)}</div>
+    <div class="panel panel-pad"><div class="chart-title"><h3>Burndown</h3><span class="muted small">puntos que faltan</span></div>${burndown(list)}</div>
+    <div class="panel panel-pad"><div class="chart-title"><h3>Velocidad</h3><span class="muted small">puntos por semana</span></div>${velocity(stats(TASKS).done)}</div>
   </div>
   <div class="board-wrap"><div class="board">
-    ${COLS.map(col => {const items = list.filter(t=>t.st===col.id); const pts = items.reduce((a,t)=>a+t.pts,0);
-      return `<section class="col" data-col="${col.id}"><div class="col-head"><span>${col.label}</span><span class="mono">${items.length} · ${pts} pts</span></div>${items.map(taskCard).join('')}</section>`}).join('')}
+    ${COLS.map(col => {const items = list.filter(t=>t.st===col.id), pts = items.reduce((a,t)=>a+t.pts,0);
+      return `<section class="col" data-col="${col.id}"><div class="col-head"><span>${col.label}</span><span>${items.length} · ${pts} pts</span></div>${items.map(taskCard).join('')}</section>`}).join('')}
   </div></div>
-  <details class="panel retro"><summary><span>Retrospectiva del sprint 45</span><span class="muted mono" style="font-size:12px">ver notas</span></summary>
+  <details class="panel retro"><summary><span>Retro del sprint 45 · 2 al 6 de noviembre</span><span class="muted small">ver notas</span></summary>
     <div class="retro-cols">
-      <div><h4 class="up">Qué funcionó</h4><ul><li>Parrillas entregadas con una semana de anticipación.</li><li>El cliente aprobó más rápido con comentarios por pieza.</li></ul></div>
+      <div><h4 class="up">Qué funcionó</h4><ul><li>Las parrillas salieron con una semana de anticipación.</li><li>El cliente aprobó más rápido comentando pieza por pieza.</li></ul></div>
       <div><h4 class="down">Qué mejorar</h4><ul><li>Las grabaciones de pantalla llegaron tarde.</li><li>Faltó confirmar precios por escrito antes de diseñar.</li></ul></div>
-      <div><h4>Acciones</h4><ul><li>Pedir insumos del cliente en el planning.</li><li>Ninguna pieza con precio pasa a diseño sin confirmación.</li></ul></div>
+      <div><h4>Qué haremos</h4><ul><li>Pedir insumos del cliente en el planning del lunes.</li><li>Ninguna pieza con precio pasa a diseño sin confirmación.</li></ul></div>
     </div></details>`;
 }
 function viewBacklog(){
-  const c = state.client;
-  const list = c === 'all' ? BACKLOG : BACKLOG.filter(b => b.c === c);
-  const prioC = {Alta:'var(--down)', Media:'var(--signal-text)', Baja:'var(--muted)'};
-  return `<div class="page-head"><div><span class="eyebrow">Product backlog</span><h1>Backlog</h1>
-    <p>Todo lo pendiente por cuenta, ordenado por prioridad. En el planning eliges qué entra al siguiente sprint.</p></div>
-    <div class="actions"><button class="btn btn-primary" data-action="new-task">Agregar al backlog</button></div></div>
+  const ids = scope(), list = BACKLOG.filter(b => ids.includes(b.c));
+  const prioC = {Alta:'var(--down)', Media:'var(--warn)', Baja:'var(--muted)'};
+  return `<div class="page-head"><div><span class="tag">Product backlog</span><h1>Backlog</h1>
+    <p>Todo lo pendiente por marca, ordenado por prioridad. En el planning del lunes eliges qué entra a la semana.</p></div>
+    <div class="actions">${primary('Agregar al backlog','data-action="m-newtask" data-dest="backlog"')}</div></div>
   <div class="table-wrap"><table>
-    <thead><tr><th>Prioridad</th><th>Historia / tarea</th><th>Cuenta</th><th>Tipo</th><th class="r">Puntos</th><th></th></tr></thead>
-    <tbody>${list.length ? list.map(b => `<tr><td><span class="chip" style="--c:${prioC[b.prio]}">${b.prio}</span></td><td><b>${esc(b.title)}</b></td><td class="nowrap">${esc(cname(b.c))}</td><td><span class="ttag" style="--c:${TYPE_COLOR[b.type]}">${b.type}</span></td><td class="r mono">${b.pts}</td><td class="r"><button class="btn btn-sm" data-action="to-sprint" data-id="${b.id}">Mover al sprint</button></td></tr>`).join('')
-      : `<tr><td colspan="6"><div class="empty"><h3>Sin pendientes en esta cuenta</h3></div></td></tr>`}</tbody>
+    <thead><tr><th>Prioridad</th><th>Historia o tarea</th><th>Marca</th><th>Tipo</th><th class="r">Puntos</th><th></th></tr></thead>
+    <tbody>${list.length ? list.map(b => `<tr><td><span class="chip" style="--c:${prioC[b.prio]}">${b.prio}</span></td><td><b>${esc(b.title)}</b></td><td class="nowrap">${esc(bname(b.c))}</td><td><span class="ttag" style="--c:${TYPE_COLOR[b.type]}">${b.type}</span></td><td class="r n">${b.pts}</td><td class="r"><button class="btn btn-sm" data-action="to-sprint" data-id="${b.id}">Pasar al sprint</button></td></tr>`).join('')
+      : `<tr><td colspan="6"><div class="empty"><h3>Sin pendientes en esta marca</h3></div></td></tr>`}</tbody>
   </table></div>`;
 }
 
 /* ============================================================
    PARRILLA
    ============================================================ */
-function stChip(st){ return `<span class="chip" style="--c:${P_COLOR[st]}">${st}</span>`; }
-function currentClient(){ return isClient() ? state.user.client : (state.client === 'all' ? 'taxbox' : state.client); }
+const stChip = st => `<span class="chip" style="--c:${P_COLOR[st]}">${st}</span>`;
 function viewParrilla(){
-  const c = currentClient();
-  const rows = PARRILLA[c];
-  const head = `<div class="page-head"><div><span class="eyebrow">${esc(cname(c))} · Noviembre 2026</span><h1>Parrilla de contenido</h1>
-    <p>${isClient() ? 'Revisa cada pieza, autorízala o pide cambios. Toca una fila para ver el contenido completo.' : 'La misma parrilla que hoy vive en Google Sheets, con aprobación del cliente pieza por pieza.'}</p></div>
+  const c = currentBrand(), rows = PARRILLA[c];
+  const head = `<div class="page-head"><div><span class="tag">${esc(bname(c))} · noviembre 2026</span><h1>Parrilla de contenido</h1>
+    <p>${isClient() ? 'Revisa cada pieza y autorízala o pide cambios. Toca una fila para ver el contenido completo.' : 'La misma parrilla que hoy vive en Google Sheets, con aprobación del cliente pieza por pieza.'}</p></div>
     <div class="actions">
       <div class="seg" role="group" aria-label="Vista"><button data-action="pmode" data-mode="tabla" aria-pressed="${state.pmode==='tabla'}">Tabla</button><button data-action="pmode" data-mode="calendario" aria-pressed="${state.pmode==='calendario'}">Calendario</button></div>
-      ${isStaff() ? `<button class="btn" data-action="import-sheet">Importar Google Sheet</button><button class="btn btn-primary" data-action="new-piece">Nueva pieza</button>` : ''}
+      ${isStaff() ? `<button class="btn" data-action="m-import">Importar Google Sheet</button>${primary('Nueva pieza','data-action="m-newpiece"')}` : ''}
       ${isClient() && rows?.some(r=>r.st==='Por aprobar') ? `<button class="btn btn-ok" data-action="approve-all">Autorizar todas las pendientes</button>` : ''}
     </div></div>`;
-  if (!rows) return head + `<div class="panel"><div class="empty"><h3>Aún no hay parrilla para ${esc(cname(c))}</h3><span>Pega el enlace de su Google Sheet y la herramienta importa las columnas.</span><button class="btn btn-primary" data-action="import-sheet">Importar Google Sheet</button></div></div>`;
+  if (!rows) return head + `<div class="panel"><div class="empty"><h3>Aún no hay parrilla de ${esc(bname(c))}</h3><span>${isStaff()?'Pega el enlace de su Google Sheet y se importan las columnas.':'En cuanto el equipo la suba, la verás aquí.'}</span>${isStaff()?primary('Importar Google Sheet','data-action="m-import"'):''}</div></div>`;
   const counts = P_STATUS.map(s => [s, rows.filter(r => r.st === s).length]).filter(([,n]) => n);
   const legend = `<div class="legend">${counts.map(([s,n]) => `<span class="chip" style="--c:${P_COLOR[s]}">${s} · ${n}</span>`).join('')}</div>`;
-  if (state.pmode === 'calendario') return head + legend + calendar(rows);
+  if (state.pmode === 'calendario') return head + legend + calendar(rows, c);
   return head + legend + `<div class="table-wrap"><table>
     <thead><tr><th>ID</th><th>Fecha</th><th>Canal · formato</th><th>Pilar</th><th>Gancho</th>${isStaff()?'<th>Pauta</th>':''}<th>Estatus</th><th class="r">Coment.</th></tr></thead>
-    <tbody>${rows.map(r => {
-      const open = state.open === r.id;
-      return `<tr class="row-click ${open?'open':''}" data-action="toggle-row" data-id="${r.id}" aria-expanded="${open}">
-        <td class="mono nowrap"><b>${r.id}</b></td>
+    <tbody>${rows.map(r => { const open = state.open === r.id;
+      return `<tr class="row-click ${open?'open':''}" data-action="toggle-row" data-id="${r.id}" aria-expanded="${open}" tabindex="0">
+        <td class="nowrap"><b>${r.id}</b></td>
         <td class="nowrap">${fdate(r.f)}<span class="cell-sub">${fday(r.f)} · ${r.h}</span></td>
         <td class="nowrap">${esc(r.canal)}<span class="cell-sub">${esc(r.fmt)}</span></td>
         <td style="min-width:140px">${esc(r.pilar)}</td>
         <td class="hook">${esc(r.hook)}</td>
         ${isStaff()?`<td style="min-width:160px" class="muted">${esc(r.pauta)}</td>`:''}
         <td>${stChip(r.st)}</td>
-        <td class="r mono">${r.thread.length || '—'}</td></tr>
-        ${open ? `<tr class="detail"><td colspan="${isStaff()?8:7}">${pieceDetail(r)}</td></tr>` : ''}`;
-    }).join('')}</tbody></table></div>`;
+        <td class="r n">${r.thread.length || '—'}</td></tr>
+        ${open ? `<tr class="detail"><td colspan="${isStaff()?8:7}">${pieceDetail(r)}</td></tr>` : ''}`; }).join('')}</tbody></table></div>`;
 }
 function pieceDetail(r){
   const staff = isStaff();
   return `<div class="detail-grid">
     <div>
       <div class="copy-block"><span class="eyebrow">Guía creativa</span><p>${esc(r.guia)}</p></div>
-      <div class="copy-block"><span class="eyebrow">Contenido (texto en pieza / guion)</span><p>${esc(r.cont)}</p></div>
+      <div class="copy-block"><span class="eyebrow">Contenido (texto en pieza o guion)</span><p>${esc(r.cont)}</p></div>
       <div class="copy-block"><span class="eyebrow">Caption con CTA</span><p>${esc(r.cap)}</p></div>
       <div class="copy-block"><span class="eyebrow">Mensaje precargado de WhatsApp</span><p>${esc(r.wa)}</p></div>
     </div>
     <div class="side-box">
       <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><span class="eyebrow">Estatus</span>
-        ${staff ? `<select class="input" style="max-width:170px;min-height:34px;padding:4px 8px" data-change="piece-status" data-id="${r.id}" aria-label="Estatus de ${r.id}">${P_STATUS.map(s=>`<option ${s===r.st?'selected':''}>${s}</option>`).join('')}</select>` : stChip(r.st)}
-      </div>
-      ${!staff && r.st === 'Por aprobar' || !staff && r.st === 'Cambios' ? `<div class="actions"><button class="btn btn-ok" data-action="approve" data-id="${r.id}">Autorizar</button><button class="btn" data-action="request-changes" data-id="${r.id}">Pedir cambios</button></div>` : ''}
-      <div><span class="eyebrow">Comentarios con el cliente</span>
-        <div class="thread" style="margin-top:8px">${r.thread.length ? r.thread.map(m => `<div class="msg"><b>${esc(m.who)}</b><span class="when">${esc(m.when)}</span><div>${esc(m.t)}</div></div>`).join('') : '<span class="muted" style="font-size:13px">Sin comentarios todavía.</span>'}</div></div>
+        ${staff ? `<select class="input" style="max-width:170px;min-height:34px;padding:4px 10px;border-radius:99px" data-change="piece-status" data-id="${r.id}" aria-label="Estatus de ${r.id}">${P_STATUS.map(s=>`<option ${s===r.st?'selected':''}>${s}</option>`).join('')}</select>` : stChip(r.st)}</div>
+      ${!staff && (r.st === 'Por aprobar' || r.st === 'Cambios') ? `<div class="actions"><button class="btn btn-ok" data-action="approve" data-id="${r.id}">Autorizar</button><button class="btn" data-action="request-changes" data-id="${r.id}">Pedir cambios</button></div>` : ''}
+      <div><span class="eyebrow">Conversación con el cliente</span>
+        <div class="thread" style="margin-top:8px">${r.thread.length ? r.thread.map(m => `<div class="msg"><b>${esc(m.who)}</b><span class="when">${esc(m.when)}</span><div>${esc(m.t)}</div></div>`).join('') : '<span class="muted small">Sin comentarios todavía.</span>'}</div></div>
       <div class="field"><label for="cm-${r.id}">${staff ? 'Responder al cliente' : 'Tu comentario'}</label><textarea class="input" id="cm-${r.id}" placeholder="${staff ? 'Escribe una respuesta…' : 'Ej. cambiar el titular por…'}"></textarea><span class="error" id="err-${r.id}"></span></div>
       <button class="btn btn-sm" data-action="comment" data-id="${r.id}">Enviar comentario</button>
       ${staff && r.nota ? `<div class="msg internal"><b>Nota interna</b><span class="when">solo equipo</span><div>${esc(r.nota)}</div></div>` : ''}
     </div></div>`;
 }
-function calendar(rows){
-  const first = new Date(2026,10,1), offset = (first.getDay()+6)%7, daysIn = 30;
-  const cells = [];
+function calendar(rows, c){
+  const offset = (new Date(2026,10,1).getDay()+6)%7, cells = [];
   for (let i=0;i<offset;i++) cells.push('<div class="day out"></div>');
-  for (let d=1; d<=daysIn; d++){
-    const iso = `2026-11-${String(d).padStart(2,'0')}`;
-    const items = rows.filter(r => r.f === iso);
-    cells.push(`<div class="day ${iso===TODAY?'today':''}"><span class="dnum">${d}</span>${items.map(r => `<button class="cal-chip" style="--c:${P_COLOR[r.st]}" data-action="goto-piece" data-client="${currentClient()}" data-id="${r.id}">${r.id}<br><span style="font-weight:500">${esc(r.fmt.split(' ')[0])}</span></button>`).join('')}</div>`);
+  for (let d=1; d<=30; d++){
+    const iso = `2026-11-${String(d).padStart(2,'0')}`, items = rows.filter(r => r.f === iso);
+    cells.push(`<div class="day ${iso===TODAY?'today':''}"><span class="dnum">${d}</span>${items.map(r => `<button class="cal-chip" style="--c:${P_COLOR[r.st]}" data-action="goto-piece" data-brand="${c}" data-id="${r.id}">${r.id}<br><span style="font-weight:500">${esc(r.fmt.split(' ')[0])}</span></button>`).join('')}</div>`);
   }
   while (cells.length % 7) cells.push('<div class="day out"></div>');
   return `<div class="cal-wrap"><div class="cal">${['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].map(d=>`<div class="dow">${d}</div>`).join('')}${cells.join('')}</div></div>`;
@@ -785,23 +864,20 @@ function calendar(rows){
    CAMPAÑAS
    ============================================================ */
 function viewCampanas(){
-  const c = currentClient();
-  const all = CAMPAIGNS[c];
-  const head = `<div class="page-head"><div><span class="eyebrow">${esc(cname(c))} · 1 al 11 de noviembre</span><h1>Campañas y resultados</h1>
-    <p>Datos de Meta Ads, TikTok Ads y Google Ads en un mismo lugar.</p></div>
+  const c = currentBrand(), all = CAMPAIGNS[c];
+  const head = `<div class="page-head"><div><span class="tag">${esc(bname(c))} · 1 al 11 de noviembre</span><h1>Campañas y resultados</h1>
+    <p>Meta Ads, TikTok Ads y Google Ads juntos, con los mismos indicadores.</p></div>
     <div class="actions">
       <div class="seg" role="group" aria-label="Plataforma">${['Todas','Meta','TikTok','Google'].map(p=>`<button data-action="platform" data-pl="${p}" aria-pressed="${state.platform===p}">${p}</button>`).join('')}</div>
-      ${isStaff()?`<button class="btn btn-primary" data-action="upload-csv">Subir CSV de plataforma</button>`:''}
+      ${isStaff()?primary('Subir CSV','data-action="m-csv"'):''}
     </div></div>`;
-  if (!all) return head + `<div class="panel"><div class="empty"><h3>Sin campañas cargadas para ${esc(cname(c))}</h3><span>Exporta el reporte de Meta, TikTok o Google Ads en CSV y súbelo aquí.</span>${isStaff()?'<button class="btn btn-primary" data-action="upload-csv">Subir CSV</button>':''}</div></div>`;
+  if (!all) return head + `<div class="panel"><div class="empty"><h3>Sin campañas cargadas de ${esc(bname(c))}</h3><span>${isStaff()?'Exporta el reporte de Meta, TikTok o Google Ads en CSV y súbelo aquí.':'En cuanto el equipo suba los datos, los verás aquí.'}</span>${isStaff()?primary('Subir CSV','data-action="m-csv"'):''}</div></div>`;
   const list = state.platform === 'Todas' ? all : all.filter(x => x.pl === state.platform);
   const sum = k => list.reduce((a,x)=>a+(x[k]||0),0);
-  const spend = sum('spend'), impr = sum('impr'), clicks = sum('clicks'), conv = sum('conv');
-  const reach = list.reduce((a,x)=>a+(x.reach||0),0);
-  const hasSales = list.some(x => x.sales != null);
-  const sales = sum('sales'), revenue = sum('revenue');
+  const spend = sum('spend'), impr = sum('impr'), clicks = sum('clicks'), conv = sum('conv'), reach = sum('reach');
+  const hasSales = list.some(x => x.sales != null), sales = sum('sales'), revenue = sum('revenue');
   const o = ORGANIC[c];
-  const nd = '<span class="muted" style="font-size:15px">Requiere ventas del cliente</span>';
+  const nd = '<span class="muted" style="font-size:14px;font-family:var(--f-body);letter-spacing:0">Necesita ventas del cliente</span>';
   return head + (list.length ? `
   <div class="kpis">
     <div class="kpi lead"><span class="k-label">Conversaciones</span><span class="k-val">${int(conv)}</span><span class="k-sub">${conv?money2(spend/conv):'—'} por conversación</span></div>
@@ -809,10 +885,10 @@ function viewCampanas(){
     <div class="kpi"><span class="k-label">Alcance</span><span class="k-val">${int(reach)}</span><span class="k-sub">${int(impr)} impresiones</span></div>
     <div class="kpi"><span class="k-label">CTR</span><span class="k-val">${impr?(clicks/impr*100).toFixed(2):'0'}%</span><span class="k-sub">${int(clicks)} clics</span></div>
     <div class="kpi"><span class="k-label">CPC (clic)</span><span class="k-val">${clicks?money2(spend/clicks):'—'}</span><span class="k-sub">costo por clic</span></div>
-    <div class="kpi"><span class="k-label">Tasa de conversión</span><span class="k-val">${hasSales&&conv?(sales/conv*100).toFixed(1)+'%':nd}</span><span class="k-sub">${hasSales?sales+' ventas / conversaciones':'ventas ÷ conversaciones'}</span></div>
+    <div class="kpi"><span class="k-label">Tasa de conversión</span><span class="k-val">${hasSales&&conv?(sales/conv*100).toFixed(1)+'%':nd}</span><span class="k-sub">${hasSales?sales+' ventas':'ventas ÷ conversaciones'}</span></div>
     <div class="kpi"><span class="k-label">ROAS</span><span class="k-val">${hasSales&&spend?(revenue/spend).toFixed(1)+'x':nd}</span><span class="k-sub">${hasSales?money(revenue)+' en ventas':'ingreso ÷ inversión'}</span></div>
   </div>
-  ${o ? `<div class="section-title"><h2>Orgánico</h2><span class="muted mono" style="font-size:12px">IG + FB + TikTok</span></div>
+  ${o ? `<div class="section-title"><h2>Orgánico</h2><span class="muted small">IG + FB + TikTok</span></div>
   <div class="kpis">
     <div class="kpi"><span class="k-label">Seguidores</span><span class="k-val">${int(o.followers)}</span><span class="k-sub up">+${int(o.growth)} este mes</span></div>
     <div class="kpi"><span class="k-label">Crecimiento</span><span class="k-val">${(o.growth/o.prev*100).toFixed(1)}%</span><span class="k-sub">vs mes anterior</span></div>
@@ -822,17 +898,17 @@ function viewCampanas(){
   <div class="table-wrap"><table>
     <thead><tr><th>Plataforma</th><th>Campaña</th><th>Estado</th><th class="r">Inversión</th><th class="r">Alcance</th><th class="r">CTR</th><th class="r">CPC</th><th class="r">Conversaciones</th><th class="r">Costo / conv.</th></tr></thead>
     <tbody>${list.map(x => `<tr>
-      <td class="nowrap"><span class="ttag" style="--c:${{Meta:'var(--blue)',TikTok:'var(--down)',Google:'var(--up)'}[x.pl]}">${x.pl}</span></td>
+      <td class="nowrap"><span class="ttag" style="--c:${{Meta:'var(--accent-text)',TikTok:'var(--down)',Google:'var(--up)'}[x.pl]}">${x.pl}</span></td>
       <td><b>${esc(x.name)}</b><span class="cell-sub">${esc(x.budget)}</span></td>
       <td><span class="chip" style="--c:${x.st==='Activa'?'var(--up)':'var(--violet)'}">${x.st}</span></td>
-      <td class="r mono">${x.spend?money(x.spend):'—'}</td>
-      <td class="r mono">${x.reach==null?'<span class="muted">n/a</span>':x.reach?int(x.reach):'—'}</td>
-      <td class="r mono">${x.impr?(x.clicks/x.impr*100).toFixed(2)+'%':'—'}</td>
-      <td class="r mono">${x.clicks?money2(x.spend/x.clicks):'—'}</td>
-      <td class="r mono">${x.conv?int(x.conv):'—'}</td>
-      <td class="r mono">${x.conv?money2(x.spend/x.conv):'—'}</td></tr>`).join('')}</tbody>
+      <td class="r n">${x.spend?money(x.spend):'—'}</td>
+      <td class="r n">${x.reach==null?'<span class="muted">n/a</span>':x.reach?int(x.reach):'—'}</td>
+      <td class="r n">${x.impr?(x.clicks/x.impr*100).toFixed(2)+'%':'—'}</td>
+      <td class="r n">${x.clicks?money2(x.spend/x.clicks):'—'}</td>
+      <td class="r n">${x.conv?int(x.conv):'—'}</td>
+      <td class="r n">${x.conv?money2(x.spend/x.conv):'—'}</td></tr>`).join('')}</tbody>
   </table></div>
-  <p class="muted" style="font-size:12px;margin-top:10px">Fase futura: conexión directa por API con cada plataforma para que estos datos se actualicen solos.</p>`
+  <p class="muted small" style="margin-top:10px">Más adelante: conexión directa con cada plataforma para que estos datos se actualicen solos.</p>`
   : `<div class="panel"><div class="empty"><h3>Sin campañas en ${esc(state.platform)}</h3></div></div>`);
 }
 
@@ -840,95 +916,183 @@ function viewCampanas(){
    REPORTES
    ============================================================ */
 function spark(vals){
-  const W=300,H=70,P=6, max=Math.max(...vals), min=Math.min(...vals);
+  const W=640,H=110,P=8, max=Math.max(...vals), min=Math.min(...vals);
   const x=i=>P+i*(W-2*P)/(vals.length-1), y=v=>P+(1-(v-min)/((max-min)||1))*(H-2*P-10);
   const pts = vals.map((v,i)=>`${x(i)},${y(v)}`).join(' ');
-  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Tendencia"><polygon points="${x(0)},${H-4} ${pts} ${x(vals.length-1)},${H-4}" fill="var(--signal)" fill-opacity=".14"/><polyline points="${pts}" fill="none" stroke="var(--signal)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="${x(vals.length-1)}" cy="${y(vals.at(-1))}" r="4" fill="var(--signal)" stroke="var(--sheet)" stroke-width="2"/></svg>`;
+  return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Tendencia"><polygon points="${x(0)},${H-4} ${pts} ${x(vals.length-1)},${H-4}" fill="var(--accent)" fill-opacity=".15"/><polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round"/><circle cx="${x(vals.length-1)}" cy="${y(vals.at(-1))}" r="4.5" fill="var(--accent)" stroke="var(--sheet)" stroke-width="2"/></svg>`;
 }
 function viewReportes(){
-  const c = currentClient();
-  const set = REPORTS[c];
-  const r = set?.[state.rmode];
-  const head = `<div class="page-head"><div><span class="eyebrow">${esc(cname(c))}</span><h1>Reportes</h1>
-    <p>Versión corta y directa: los números que importan, qué funcionó y qué sigue.</p></div>
+  const c = currentBrand(), r = REPORTS[c]?.[state.rmode];
+  const head = `<div class="page-head"><div><span class="tag">${esc(bname(c))}</span><h1>Reportes</h1>
+    <p>Corto y directo: los números que importan, qué funcionó y qué sigue.</p></div>
     <div class="actions"><div class="seg" role="group" aria-label="Periodo"><button data-action="rmode" data-mode="semanal" aria-pressed="${state.rmode==='semanal'}">Semanal</button><button data-action="rmode" data-mode="mensual" aria-pressed="${state.rmode==='mensual'}">Mensual</button></div>
-    ${isStaff()?'<button class="btn btn-primary" data-action="publish-report">Publicar para el cliente</button>':''}</div></div>`;
-  if (!r) return head + `<div class="panel"><div class="empty"><h3>Aún no hay reporte ${state.rmode} de ${esc(cname(c))}</h3><span>Se arma solo con los datos de campañas y orgánico del periodo.</span></div></div>`;
-  return head + `<article class="report">
+    ${isStaff() && r ? (r.published ? `<span class="chip" style="--c:var(--up)">Publicado el ${r.published}</span>` : primary('Publicar para el cliente','data-action="m-publish"')) : ''}</div></div>`;
+  if (!r) return head + `<div class="panel"><div class="empty"><h3>Aún no hay reporte ${state.rmode} de ${esc(bname(c))}</h3><span>Se arma con los datos de campañas y orgánico del periodo.</span></div></div>`;
+  if (isClient() && !r.published) return head + `<div class="panel"><div class="empty"><h3>Tu reporte ${state.rmode} está en preparación</h3><span>Lo verás aquí en cuanto Jorge lo publique. Te avisamos por correo.</span></div></div>`;
+  return head + (isStaff() && !r.published ? `<div class="pub-note"><span class="chip" style="--c:var(--warn)">Borrador</span><span class="muted">El cliente todavía no ve este reporte.</span></div>` : '') + `<article class="report">
     <header class="rep-band">
-      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">${brand()}<span class="mono" style="font-size:11px;color:var(--on-ink-muted)">Reporte ${state.rmode} · ${esc(r.period)}</span></div>
-      <span class="eyebrow">${esc(cname(c))} · ${esc(CLIENTS.find(x=>x.id===c).sector)}</span>
-      <h2>Reporte de resultados<br>${esc(r.title)}</h2>
+      <div style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center">${logoHTML()}<span class="small" style="color:var(--on-night-muted)">Reporte ${state.rmode} · ${esc(r.period)}</span></div>
+      <span class="tag">${esc(bname(c))} · ${esc(B(c).sector)}</span>
+      <h2>Resultados de <span class="hl">${esc(r.title)}</span></h2>
     </header>
     <div class="rep-body">
       <div class="kpis">${r.kpis.map(k => `<div class="kpi ${k.lead?'lead':''}"><span class="k-label">${k.l}</span><span class="k-val">${k.v}</span><span class="k-sub ${k.up?'up':'down'}">${k.d} vs ${state.rmode==='semanal'?'semana':'mes'} anterior</span></div>`).join('')}</div>
       <div class="rep-sec"><h3>En una frase</h3><p class="summary-line">${r.summary}</p></div>
-      <div class="rep-sec"><div class="chart-title"><h3>${r.kpis[0].l} · tendencia</h3><span class="mono muted" style="font-size:11px">${state.rmode==='semanal'?'últimas 7 semanas':'últimos 4 meses'}</span></div>${spark(r.trend)}</div>
-      <div class="rep-sec"><div class="list-2">
+      <div class="rep-sec"><div class="chart-title"><h3>${r.kpis[0].l} · tendencia</h3><span class="muted small">${state.rmode==='semanal'?'últimas 7 semanas':'últimos 4 meses'}</span></div>${spark(r.trend)}</div>
+      <div class="rep-sec"><div class="two">
         <div class="li-card"><span class="chip" style="--c:var(--up)">Conectó</span>${r.good.map(g=>`<span>${esc(g)}</span>`).join('')}</div>
-        <div class="li-card"><span class="chip" style="--c:var(--signal-text)">Por ajustar</span>${r.fix.map(g=>`<span>${esc(g)}</span>`).join('')}</div>
+        <div class="li-card"><span class="chip" style="--c:var(--warn)">Por ajustar</span>${r.fix.map(g=>`<span>${esc(g)}</span>`).join('')}</div>
       </div></div>
-      <div class="next"><h3>Lo que sigue</h3><ol>${r.next.map(n=>`<li><span>${esc(n)}</span></li>`).join('')}</ol><div class="goal">${esc(r.goal)}</div></div>
+      <div class="next"><h3>Lo que sigue</h3><ol>${r.next.map(n=>`<li><span>${esc(n)}</span></li>`).join('')}</ol><span class="goal-line">${esc(r.goal)}</span></div>
       <div class="rep-foot">Jorge Peñaloza MKT · Growth Marketing · Puebla · Fuente: Meta Ads, TikTok Ads, Google Ads y estadísticas orgánicas</div>
     </div>
   </article>`;
 }
 
 /* ============================================================
-   ACCESOS
+   ACCESOS (solo admin)
    ============================================================ */
 function viewAccesos(){
   const team = USERS.filter(u => u.role !== 'cliente').length;
-  const roleL = {admin:'Administrador', equipo:'Equipo', cliente:'Cliente'};
-  return `<div class="page-head"><div><span class="eyebrow">Solo administrador</span><h1>Accesos</h1>
-    <p>Nadie puede registrarse solo. Tú creas cada usuario y decides qué cuentas ve.</p></div></div>
+  return `<div class="page-head"><div><span class="tag">Solo administrador</span><h1>Accesos</h1>
+    <p>Nadie se registra solo. Tú creas cada usuario y decides qué marcas ve.</p></div></div>
   <div class="kpis" style="margin-bottom:18px">
-    <div class="kpi lead"><span class="k-label">Lugares de equipo</span><span class="k-val">${team} <span class="muted" style="font-size:16px">/ 5</span></span><span class="k-sub">crecimiento previsto 2027</span></div>
-    <div class="kpi"><span class="k-label">Usuarios de cliente</span><span class="k-val">${USERS.filter(u=>u.role==='cliente').length}</span><span class="k-sub">cada uno ve solo su cuenta</span></div>
+    <div class="kpi lead"><span class="k-label">Lugares de equipo</span><span class="k-val">${team} / 5</span><span class="k-sub">crecimiento previsto para 2027</span></div>
+    <div class="kpi"><span class="k-label">Usuarios de cliente</span><span class="k-val">${USERS.filter(u=>u.role==='cliente').length}</span><span class="k-sub">cada uno ve solo lo suyo</span></div>
+    <div class="kpi"><span class="k-label">Clientes · marcas</span><span class="k-val">${CLIENTS.length} · ${BRANDS.length}</span><span class="k-sub">meta: 10 marcas</span></div>
   </div>
-  <div class="grid" style="grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)" id="acc-grid">
+  <div class="acc-grid" style="display:grid;gap:14px;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
     <div class="table-wrap"><table>
-      <thead><tr><th>Usuario</th><th>Rol</th><th>Cuentas</th><th></th></tr></thead>
-      <tbody>${USERS.map(u => `<tr><td><div style="display:flex;gap:10px;align-items:center"><span class="av ${u.ini}">${esc(u.ini)}</span><div><b>${esc(u.name)}</b><span class="cell-sub mono">${esc(u.user)}</span></div></div></td>
-        <td><span class="chip" style="--c:${{admin:'var(--signal-text)',equipo:'var(--blue)',cliente:'var(--up)'}[u.role]}">${roleL[u.role]}</span></td>
-        <td>${esc(u.accounts)}</td><td class="r"><button class="btn btn-sm" data-action="reset-pass" data-user="${esc(u.user)}">Restablecer contraseña</button></td></tr>`).join('')}</tbody>
+      <thead><tr><th>Usuario</th><th>Rol</th><th>Ve</th><th></th></tr></thead>
+      <tbody>${USERS.map(u => `<tr><td><div style="display:flex;gap:10px;align-items:center"><span class="av ${u.ini}">${esc(u.ini)}</span><div><b>${esc(u.name)}</b><span class="cell-sub">${esc(u.user)}</span></div></div></td>
+        <td><span class="chip" style="--c:${{admin:'var(--accent-text)',equipo:'var(--violet)',cliente:'var(--up)'}[u.role]}">${ROLE_L[u.role]}</span></td>
+        <td>${esc(u.accounts)}</td><td class="r nowrap">${u.role==='admin'?'':`<button class="btn btn-sm" data-action="m-reset" data-user="${esc(u.user)}">Nueva contraseña</button>`}</td></tr>`).join('')}</tbody>
     </table></div>
     <form class="panel panel-pad" id="new-user" style="display:grid;gap:12px;align-content:start" novalidate>
-      <h3 style="font-size:16px">Nuevo usuario</h3>
-      <div class="field"><label for="nu-name">Nombre</label><input class="input" id="nu-name" placeholder="Ej. Cliente Mesón"></div>
+      <h3 style="font-size:18px">Nuevo usuario</h3>
+      <div class="field"><label for="nu-name">Nombre</label><input class="input" id="nu-name" placeholder="Ej. Equipo Mesón"></div>
       <div class="field"><label for="nu-user">Usuario</label><input class="input" id="nu-user" placeholder="ej. meson"></div>
-      <div class="field"><label for="nu-role">Rol</label><select class="input" id="nu-role"><option value="cliente">Cliente</option><option value="equipo">Equipo</option></select></div>
-      <div class="field"><label for="nu-acc">Cuenta</label><select class="input" id="nu-acc">${CLIENTS.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('')}</select></div>
+      <div class="field"><label for="nu-role">Rol</label><select class="input" id="nu-role"><option value="cliente">Cliente</option><option value="equipo">Colaborador</option></select></div>
+      <div class="field"><label for="nu-acc">Qué ve</label><select class="input" id="nu-acc">
+        ${CLIENTS.map(c => `<optgroup label="${esc(c.name)}"><option value="client:${c.id}">Todo ${esc(c.name)}</option>${BRANDS.filter(b=>b.client===c.id && c.id!=='ilse').map(b=>`<option value="brand:${b.id}">Solo ${esc(b.name)}</option>`).join('')}</optgroup>`).join('')}
+      </select></div>
       <span class="error" id="nu-err"></span>
-      <button class="btn btn-primary" type="submit">Crear y generar contraseña</button>
+      ${primary('Crear usuario','type="submit"')}
     </form>
   </div>`;
 }
 
 /* ============================================================
-   MODAL
+   VENTANAS (MODALES)
    ============================================================ */
+const wrap = (title, eyebrow, body, foot='') => `<div class="scrim" data-action="close-modal"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+  <div class="modal-head"><div><span class="eyebrow">${eyebrow}</span><h3 id="mt">${title}</h3></div><button class="btn btn-sm btn-ghost" data-action="close-modal" aria-label="Cerrar">✕</button></div>
+  ${body}${foot ? `<div class="modal-foot">${foot}</div>` : ''}</div></div>`;
+const brandOptions = sel => CLIENTS.map(c => `<optgroup label="${esc(c.name)}">${BRANDS.filter(b=>b.client===c.id).map(b=>`<option value="${b.id}" ${b.id===sel?'selected':''}>${esc(b.name)}</option>`).join('')}</optgroup>`).join('');
+
 function modal(){
   const m = state.modal;
   if (m.type === 'task'){
-    const t = TASKS.find(x => x.id === m.id);
-    return `<div class="scrim" data-action="close-modal"><div class="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
-      <div style="display:flex;justify-content:space-between;gap:12px;align-items:flex-start"><div><span class="eyebrow">${esc(cname(t.c))} · ${t.id.toUpperCase()}</span><h3 id="mt">${esc(t.title)}</h3></div><button class="btn btn-sm btn-ghost" data-action="close-modal" aria-label="Cerrar">✕</button></div>
+    const t = TASKS.find(x => x.id === m.id), staff = isStaff();
+    return wrap(esc(t.title), `${esc(bname(t.c))} · Sprint 46`, `
       <dl class="kv">
-        <dt>Estado</dt><dd><select class="input" style="min-height:34px;padding:4px 8px" data-change="task-status" data-id="${t.id}">${COLS.map(c=>`<option value="${c.id}" ${c.id===t.st?'selected':''}>${c.label}</option>`).join('')}</select></dd>
+        <dt>Estado</dt><dd>${staff ? `<select class="input" style="min-height:34px;padding:4px 10px" data-change="task-status" data-id="${t.id}">${COLS.map(c=>`<option value="${c.id}" ${c.id===t.st?'selected':''}>${c.label}</option>`).join('')}</select>` : COLS.find(c=>c.id===t.st).label}</dd>
         <dt>Responsable</dt><dd>${esc(TEAM[t.who].name)} · <span class="muted">${esc(TEAM[t.who].role)}</span></dd>
-        <dt>Story points</dt><dd class="mono">${t.pts}</dd>
+        <dt>Story points</dt><dd>${t.pts}</dd>
         <dt>Tipo</dt><dd><span class="ttag" style="--c:${TYPE_COLOR[t.type]}">${t.type}</span></dd>
         <dt>Fecha límite</dt><dd>${fday(t.due)} ${fdate(t.due)}</dd>
       </dl>
-      <div><span class="eyebrow">Criterios de aceptación</span>
+      <div><span class="eyebrow">Criterios para darla por hecha</span>
         <div style="display:grid;gap:6px;margin-top:8px">
-          <label class="check"><input type="checkbox" id="ck1-${t.id}" ${t.st==='done'?'checked':''}> Revisado contra la guía creativa</label>
+          <label class="check"><input type="checkbox" id="ck1-${t.id}" ${t.st==='done'?'checked':''}> Revisada contra la guía creativa</label>
           <label class="check"><input type="checkbox" id="ck2-${t.id}" ${t.st==='done'?'checked':''}> Formato y medidas correctos</label>
-          <label class="check"><input type="checkbox" id="ck3-${t.id}"> Ligado a su pieza en la parrilla</label>
+          <label class="check"><input type="checkbox" id="ck3-${t.id}"> Ligada a su pieza en la parrilla</label>
         </div></div>
-      <div class="field"><label for="tc-${t.id}">Comentario interno</label><textarea class="input" id="tc-${t.id}" placeholder="Solo lo ve el equipo"></textarea></div>
-    </div></div>`;
+      <div class="field"><label for="tc-${t.id}">Comentario interno</label><textarea class="input" id="tc-${t.id}" placeholder="Solo lo ve el equipo"></textarea></div>`,
+      `<button class="btn" data-action="close-modal">Cerrar</button>`);
+  }
+  if (m.type === 'newtask'){
+    const toBacklog = m.dest === 'backlog';
+    return wrap(toBacklog ? 'Agregar al backlog' : 'Nueva tarea', toBacklog ? 'Backlog' : 'Sprint 46 · 9 al 13 nov', `
+      <form id="f-newtask" class="form-grid" novalidate>
+        <div class="field full"><label for="nt-title">Qué hay que hacer</label><input class="input" id="nt-title" placeholder="Ej. Diseñar carrusel ORG-40"></div>
+        <div class="field"><label for="nt-brand">Marca</label><select class="input" id="nt-brand">${brandOptions(state.brand==='all'?'taxbox':state.brand)}</select></div>
+        <div class="field"><label for="nt-type">Tipo</label><select class="input" id="nt-type">${TYPES.map(t=>`<option>${t}</option>`).join('')}</select></div>
+        <div class="field"><label for="nt-who">Responsable</label><select class="input" id="nt-who">${Object.entries(TEAM).map(([k,v])=>`<option value="${k}" ${k===state.user.ini?'selected':''}>${esc(v.name)}</option>`).join('')}</select></div>
+        <div class="field"><label for="nt-pts">Story points</label><select class="input" id="nt-pts">${[1,2,3,5,8].map(p=>`<option ${p===3?'selected':''}>${p}</option>`).join('')}</select></div>
+        <div class="field"><label for="nt-due">Fecha límite</label><input class="input" type="date" id="nt-due" value="2026-11-13" min="2026-11-09"></div>
+        <div class="field"><label for="nt-dest">Va a</label><select class="input" id="nt-dest"><option value="sprint" ${toBacklog?'':'selected'}>Esta semana (sprint 46)</option><option value="backlog" ${toBacklog?'selected':''}>Backlog</option></select></div>
+        <span class="error full" id="nt-err"></span>
+      </form>`, `<button class="btn" data-action="close-modal">Cancelar</button>${primary('Guardar','type="submit" form="f-newtask"')}`);
+  }
+  if (m.type === 'newpiece'){
+    const c = currentBrand(), rows = PARRILLA[c] || [];
+    const nextId = 'ORG-' + (Math.max(0, ...rows.map(r => +(r.id.match(/ORG-(\d+)/)||[])[1] || 0)) + 1);
+    return wrap('Nueva pieza', `${esc(bname(c))} · parrilla de noviembre`, `
+      <form id="f-newpiece" class="form-grid" novalidate>
+        <div class="field"><label for="np-id">ID</label><input class="input" id="np-id" value="${nextId}"></div>
+        <div class="field"><label for="np-date">Fecha</label><input class="input" type="date" id="np-date" value="2026-11-24" min="2026-11-01" max="2026-11-30"></div>
+        <div class="field"><label for="np-hour">Hora</label><input class="input" type="time" id="np-hour" value="19:30"></div>
+        <div class="field"><label for="np-canal">Canal</label><select class="input" id="np-canal">${['IG + FB','IG + FB + TikTok','LinkedIn + FB','IG + FB + LinkedIn','TikTok'].map(o=>`<option>${o}</option>`).join('')}</select></div>
+        <div class="field"><label for="np-fmt">Formato</label><select class="input" id="np-fmt">${['Estática 4:5','Carrusel 5 slides','Reel 20 s','Historias (3)','Estática 1200×1200'].map(o=>`<option>${o}</option>`).join('')}</select></div>
+        <div class="field"><label for="np-pilar">Pilar</label><input class="input" id="np-pilar" value="Producto (70%)"></div>
+        <div class="field full"><label for="np-hook">Gancho</label><input class="input" id="np-hook" placeholder="La primera línea que detiene el scroll"></div>
+        <div class="field full"><label for="np-guia">Guía creativa</label><textarea class="input" id="np-guia" placeholder="Qué debe sentir y entender quien la vea"></textarea></div>
+        <div class="field full"><label for="np-cont">Contenido (texto en pieza o guion)</label><textarea class="input" id="np-cont"></textarea></div>
+        <div class="field full"><label for="np-cap">Caption con CTA</label><textarea class="input" id="np-cap"></textarea></div>
+        <div class="field"><label for="np-pauta">Pauta</label><input class="input" id="np-pauta" placeholder="Ej. Sí · C1 Producto · $133/día"></div>
+        <div class="field"><label for="np-wa">Mensaje precargado de WhatsApp</label><input class="input" id="np-wa"></div>
+        <div class="field"><label for="np-st">Estatus inicial</label><select class="input" id="np-st"><option>En proceso</option><option>Por aprobar</option></select></div>
+        <span class="error full" id="np-err"></span>
+      </form>`, `<button class="btn" data-action="close-modal">Cancelar</button>${primary('Agregar a la parrilla','type="submit" form="f-newpiece"')}`);
+  }
+  if (m.type === 'import'){
+    const cols = [['ID pieza','ID'],['Semana','Semana'],['Fecha','Fecha'],['Día','Día'],['Horario','Hora'],['Pilar','Pilar'],['Canal','Canal'],['Formato','Formato'],['Gancho','Gancho'],['Guía creativa','Guía creativa'],['Contenido (texto en pieza / guion)','Contenido'],['Caption con CTA y #s','Caption'],['Pauta (¿se pauta? · campaña · presupuesto)','Pauta'],['Mensaje precargado de WhatsApp','WhatsApp'],['Estatus','Estatus'],['Comentarios','Comentarios del cliente']];
+    return wrap('Importar desde Google Sheets', `${esc(bname(currentBrand()))} · parrilla`, `
+      <div class="steps"><span class="${m.step===1?'on':''}">1 · Enlace</span><span class="${m.step===2?'on':''}">2 · Columnas</span></div>
+      ${m.step === 1 ? `<form id="f-import" style="display:grid;gap:12px" novalidate>
+        <div class="field"><label for="im-url">Enlace del Google Sheet</label><input class="input" id="im-url" placeholder="https://docs.google.com/spreadsheets/d/…" value="${esc(m.url||'')}"></div>
+        <p class="muted small">La hoja debe estar compartida con la cuenta de la herramienta. Se lee la primera pestaña.</p>
+        <span class="error" id="im-err"></span></form>`
+      : `<p class="small">Encontramos <b>15 piezas</b> en «TaxBox_Parrilla_Nov_Semanas2a4». Así se acomodan las columnas:</p>
+        <div class="table-wrap" style="max-height:300px;overflow:auto"><table><thead><tr><th>Columna en tu hoja</th><th>Campo en la herramienta</th><th></th></tr></thead>
+        <tbody>${cols.map(([a,b])=>`<tr><td>${esc(a)}</td><td><b>${esc(b)}</b></td><td class="ok-mark">✓</td></tr>`).join('')}</tbody></table></div>`}`,
+      m.step === 1 ? `<button class="btn" data-action="close-modal">Cancelar</button>${primary('Revisar columnas','type="submit" form="f-import"')}`
+                   : `<button class="btn" data-action="import-back">Atrás</button>${primary('Importar 15 piezas','data-action="import-do"')}`);
+  }
+  if (m.type === 'csv'){
+    const MAP = {
+      Meta:[['Nombre de la campaña','Campaña'],['Importe gastado (MXN)','Inversión'],['Alcance','Alcance'],['Impresiones','Impresiones'],['Clics en el enlace','Clics'],['Conversaciones con mensajes iniciadas','Conversaciones']],
+      TikTok:[['Campaign name','Campaña'],['Cost','Inversión'],['Reach','Alcance'],['Impressions','Impresiones'],['Clicks (destination)','Clics'],['Conversions','Conversaciones']],
+      Google:[['Campaña','Campaña'],['Costo','Inversión'],['Impr.','Impresiones'],['Clics','Clics'],['Conversiones','Conversaciones']],
+    };
+    const pl = m.pl || 'Meta';
+    return wrap('Subir datos de campañas', `${esc(bname(currentBrand()))} · campañas`, `
+      <div class="form-grid">
+        <div class="field"><label for="csv-pl">Plataforma</label><select class="input" id="csv-pl" data-change="csv-pl">${['Meta','TikTok','Google'].map(p=>`<option ${p===pl?'selected':''}>${p}</option>`).join('')}</select></div>
+        <div class="field"><label for="csv-file">Archivo CSV exportado</label><input class="input" type="file" id="csv-file" accept=".csv,text/csv"></div>
+      </div>
+      ${m.file ? `<p class="small"><span class="ok-mark">✓</span> <b>${esc(m.file.name)}</b> · ${m.file.rows} filas · ${m.file.headers} columnas detectadas</p>` : `<p class="muted small">Exporta el reporte desde el administrador de anuncios de ${pl} con el rango de fechas del periodo. No hace falta acomodar nada.</p>`}
+      <div><span class="eyebrow">Columnas que se leen de ${pl}</span>
+      <div class="table-wrap" style="margin-top:8px"><table><thead><tr><th>Columna en el CSV</th><th>Indicador</th></tr></thead><tbody>${MAP[pl].map(([a,b])=>`<tr><td>${esc(a)}</td><td><b>${b}</b></td></tr>`).join('')}</tbody></table></div></div>
+      <p class="muted small">CTR, CPC y costo por conversación se calculan solos.</p>`,
+      `<button class="btn" data-action="close-modal">Cancelar</button>${primary(m.file?'Cargar datos':'Usar archivo de ejemplo','data-action="csv-do"')}`);
+  }
+  if (m.type === 'publish'){
+    const r = REPORTS[currentBrand()][state.rmode];
+    return wrap('Publicar reporte', `${esc(bname(currentBrand()))} · ${esc(r.period)}`, `
+      <p>Al publicarlo, ${esc(bname(currentBrand()))} lo ve en su portal, en Reportes.</p>
+      <label class="check"><input type="checkbox" id="pub-mail" checked> Avisar al cliente por correo</label>
+      <label class="check"><input type="checkbox" id="pub-check"> Revisé que los números coinciden con las plataformas</label>
+      <span class="error" id="pub-err"></span>`,
+      `<button class="btn" data-action="close-modal">Cancelar</button>${primary('Publicar','data-action="publish-do"')}`);
+  }
+  if (m.type === 'reset'){
+    return wrap('Nueva contraseña', `Usuario · ${esc(m.user)}`, `
+      <p>Esta es la contraseña temporal. Al entrar, el sistema le pide crear una propia.</p>
+      <div class="pass" id="tmp-pass">${esc(m.pass)}</div>
+      <p class="muted small">Compártela por WhatsApp o en persona. No se vuelve a mostrar.</p>`,
+      `<button class="btn" data-action="copy-pass">Copiar</button>${primary('Listo','data-action="close-modal"')}`);
   }
   return '';
 }
@@ -936,22 +1100,28 @@ function modal(){
 /* ============================================================
    RENDER Y EVENTOS
    ============================================================ */
+const VIEWS = {inicio:viewInicio, mis:viewMis, tablero:viewTablero, backlog:viewBacklog, parrilla:viewParrilla, campanas:viewCampanas, reportes:viewReportes, accesos:viewAccesos};
 function render(){
   if (!state.user){ $('#app').innerHTML = viewLogin(); return; }
-  const v = {inicio:viewInicio, tablero:viewTablero, backlog:viewBacklog, parrilla:viewParrilla, campanas:viewCampanas, reportes:viewReportes, accesos:viewAccesos}[state.view] || viewInicio;
-  $('#app').innerHTML = shell(v());
+  $('#app').innerHTML = shell((VIEWS[state.view] || viewInicio)());
   bindDnD();
+}
+function setUser(u, view){
+  state.user = u; state.loginErr = ''; state.modal = null; state.open = null;
+  state.brand = u.role === 'cliente' && allowedBrands(u).length === 1 ? allowedBrands(u)[0].id : 'all';
+  const allowed = navFor(u.role).map(n => n[0]);
+  state.view = allowed.includes(view) ? view : homeFor(u.role);
+  if (!MULTI_VIEWS.includes(state.view) && state.brand === 'all') state.brand = allowedIds()[0];
+  render(); window.scrollTo(0,0);
 }
 function login(username, pass){
   const u = USERS.find(x => x.user === username.trim().toLowerCase());
   if (!u || pass !== 'demo'){ state.loginErr = 'Usuario o contraseña incorrectos. En el prototipo la contraseña es «demo».'; render(); return; }
-  state.user = u; state.loginErr = ''; state.view = 'inicio';
-  state.client = u.role === 'cliente' ? u.client : 'all';
-  render(); window.scrollTo(0,0);
+  setUser(u);
 }
 function go(view){
   state.view = view; state.open = null;
-  if (['parrilla','campanas','reportes'].includes(view) && state.client === 'all' && isStaff()) state.client = 'taxbox';
+  if (!MULTI_VIEWS.includes(view) && state.brand === 'all') state.brand = allowedIds()[0];
   render(); window.scrollTo(0,0);
 }
 function bindDnD(){
@@ -970,9 +1140,8 @@ function bindDnD(){
     });
   });
 }
-function addMsg(r, text){
-  r.thread.push({who: state.user.name, t:text, when: fdate(TODAY)});
-}
+const findPiece = (brand, id) => (PARRILLA[brand]||[]).find(x => x.id === id);
+const addMsg = (r, text) => r.thread.push({who: state.user.name, t:text, when: fdate(TODAY)});
 
 document.addEventListener('click', e => {
   const el = e.target.closest('[data-action]');
@@ -980,32 +1149,41 @@ document.addEventListener('click', e => {
   const a = el.dataset.action, id = el.dataset.id;
   if (a === 'close-modal'){ if (e.target === el || el.tagName === 'BUTTON'){ state.modal = null; render(); } return; }
   switch (a){
-    case 'login-as': $('#lg-user').value = el.dataset.user; $('#lg-pass').value = 'demo'; login(el.dataset.user, 'demo'); break;
+    case 'jump': setUser(USERS.find(u => u.user === el.dataset.user), el.dataset.view); break;
     case 'logout': state.user = null; state.modal = null; render(); break;
     case 'nav': go(el.dataset.view); break;
-    case 'open-client': state.client = el.dataset.client; go('tablero'); break;
-    case 'goto-piece': state.client = isClient() ? state.client : el.dataset.client; state.pmode = 'tabla'; state.view = 'parrilla'; state.open = id; render();
+    case 'open-brand': state.brand = el.dataset.brand; go(isClient() ? 'parrilla' : 'tablero'); break;
+    case 'goto-piece': state.brand = el.dataset.brand; state.pmode = 'tabla'; state.view = 'parrilla'; state.open = id; render();
       setTimeout(() => document.querySelector(`tr[data-id="${id}"]`)?.scrollIntoView({behavior:'smooth', block:'center'}), 30); break;
     case 'open-task': state.modal = {type:'task', id: el.dataset.task}; render(); break;
     case 'toggle-row': if (e.target.closest('.detail')) return; state.open = state.open === id ? null : id; render(); break;
     case 'pmode': state.pmode = el.dataset.mode; render(); break;
     case 'platform': state.platform = el.dataset.pl; render(); break;
     case 'rmode': state.rmode = el.dataset.mode; render(); break;
-    case 'approve': { const r = PARRILLA[currentClient()].find(x => x.id === id); r.st = 'Autorizado'; addMsg(r, 'Autorizó la pieza.'); render(); toast(`${id} autorizada. El equipo recibe aviso.`); break; }
-    case 'request-changes': { const txt = $('#cm-'+id).value.trim(); if (!txt){ $('#err-'+id).textContent = 'Escribe qué cambio necesitas para que el equipo lo atienda.'; $('#cm-'+id).focus(); return; }
-      const r = PARRILLA[currentClient()].find(x => x.id === id); r.st = 'Cambios'; addMsg(r, txt); render(); toast(`Cambios solicitados en ${id}.`); break; }
+    case 'advance': { const t = TASKS.find(x => x.id === id); t.st = NEXT[t.st][0]; render(); toast(`Tarea movida a «${COLS.find(c=>c.id===t.st).label}».`); break; }
+    case 'to-approval': { const r = findPiece(el.dataset.brand, id); r.st = 'Por aprobar'; render(); toast(`${id} enviada al cliente para aprobación.`); break; }
+    case 'schedule': { const r = findPiece(el.dataset.brand, id); r.st = 'Programado'; render(); toast(`${id} quedó programada.`); break; }
+    case 'approve': { const r = findPiece(currentBrand(), id); r.st = 'Autorizado'; addMsg(r, 'Autorizó la pieza.'); render(); toast(`${id} autorizada. Le avisamos al equipo.`); break; }
+    case 'request-changes': { const txt = $('#cm-'+id).value.trim(); if (!txt){ $('#err-'+id).textContent = 'Cuéntanos qué cambio necesitas para poder atenderlo.'; $('#cm-'+id).focus(); return; }
+      const r = findPiece(currentBrand(), id); r.st = 'Cambios'; addMsg(r, txt); render(); toast(`Cambios pedidos en ${id}.`); break; }
     case 'comment': { const txt = $('#cm-'+id).value.trim(); if (!txt){ $('#err-'+id).textContent = 'Escribe un comentario antes de enviarlo.'; return; }
-      const r = PARRILLA[currentClient()].find(x => x.id === id); addMsg(r, txt); render(); toast('Comentario enviado.'); break; }
-    case 'approve-all': { const rows = PARRILLA[currentClient()].filter(r => r.st === 'Por aprobar'); rows.forEach(r => { r.st = 'Autorizado'; addMsg(r, 'Autorizó la pieza.'); }); render(); toast(`${rows.length} piezas autorizadas.`); break; }
-    case 'to-sprint': { const i = BACKLOG.findIndex(b => b.id === id); const b = BACKLOG.splice(i,1)[0];
-      TASKS.push({id:'t'+(TASKS.length+1)+b.id, c:b.c, title:b.title, type:b.type, who: b.type==='Diseño'||b.type==='Video'?'DI':b.type==='Community'?'CM':'JP', pts:b.pts, st:'todo', due:'2026-11-20'});
-      render(); toast('Movida al sprint 46, columna «Por hacer».'); break; }
-    case 'import-sheet': toast('En la versión final pegas el enlace del Google Sheet y se importan sus columnas.'); break;
-    case 'upload-csv': toast('En la versión final subes el CSV exportado y se reconocen las columnas de cada plataforma.'); break;
-    case 'new-task': toast('En la versión final se abre el formulario de nueva tarea.'); break;
-    case 'new-piece': toast('En la versión final se agrega una fila nueva a la parrilla.'); break;
-    case 'publish-report': toast('Reporte publicado. El cliente lo ve en su portal.'); break;
-    case 'reset-pass': toast(`Se generó una contraseña temporal para «${el.dataset.user}».`); break;
+      addMsg(findPiece(currentBrand(), id), txt); render(); toast('Comentario enviado.'); break; }
+    case 'approve-all': { const rows = PARRILLA[currentBrand()].filter(r => r.st === 'Por aprobar'); rows.forEach(r => { r.st = 'Autorizado'; addMsg(r, 'Autorizó la pieza.'); }); render(); toast(`${rows.length} piezas autorizadas.`); break; }
+    case 'to-sprint': { const i = BACKLOG.findIndex(b => b.id === id), b = BACKLOG.splice(i,1)[0];
+      TASKS.push({id:'t'+Date.now(), c:b.c, title:b.title, type:b.type, who: ['Diseño','Video'].includes(b.type)?'DI':b.type==='Community'?'CM':'JP', pts:b.pts, st:'todo', due:'2026-11-13'});
+      render(); toast('Pasó al sprint 46, columna «Por hacer».'); break; }
+    case 'm-newtask': state.modal = {type:'newtask', dest: el.dataset.dest}; render(); $('#nt-title')?.focus(); break;
+    case 'm-newpiece': state.modal = {type:'newpiece'}; render(); break;
+    case 'm-import': state.modal = {type:'import', step:1}; render(); $('#im-url')?.focus(); break;
+    case 'import-back': state.modal.step = 1; render(); break;
+    case 'import-do': state.modal = null; render(); toast('Listo: 15 piezas importadas con su estatus y comentarios.'); break;
+    case 'm-csv': state.modal = {type:'csv', pl: state.platform === 'Todas' ? 'Meta' : state.platform}; render(); break;
+    case 'csv-do': { const f = state.modal.file; state.modal = null; render(); toast(f ? `Cargamos ${f.rows} filas de ${f.name}.` : 'Cargamos el archivo de ejemplo. Los indicadores ya se actualizaron.'); break; }
+    case 'm-publish': state.modal = {type:'publish'}; render(); break;
+    case 'publish-do': { if (!$('#pub-check').checked){ $('#pub-err').textContent = 'Confirma que revisaste los números antes de publicar.'; return; }
+      REPORTS[currentBrand()][state.rmode].published = fdate(TODAY); state.modal = null; render(); toast('Reporte publicado. El cliente ya lo puede ver.'); break; }
+    case 'm-reset': state.modal = {type:'reset', user: el.dataset.user, pass: 'Puebla-' + (1000 + Math.floor(Math.random()*9000))}; render(); break;
+    case 'copy-pass': { const p = state.modal.pass; try { navigator.clipboard.writeText(p).then(() => toast('Contraseña copiada.'), () => { getSelection().selectAllChildren($('#tmp-pass')); toast('Selecciónala y cópiala.'); }); } catch { getSelection().selectAllChildren($('#tmp-pass')); } break; }
   }
 });
 document.addEventListener('keydown', e => {
@@ -1013,21 +1191,55 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Enter' && e.target.matches('.card[data-action="open-task"], tr.row-click')) e.target.click();
 });
 document.addEventListener('change', e => {
-  const k = e.target.dataset.change; if (!k) return;
-  if (k === 'client'){ state.client = e.target.value; state.open = null; render(); }
-  if (k === 'piece-status'){ const r = PARRILLA[currentClient()].find(x => x.id === e.target.dataset.id); r.st = e.target.value; render(); toast(`${r.id}: ${r.st}`); }
+  const k = e.target.dataset.change;
+  if (e.target.id === 'csv-file' && e.target.files[0]){
+    const file = e.target.files[0], rd = new FileReader();
+    rd.onload = () => { const lines = String(rd.result).split(/\r?\n/).filter(l => l.trim()); state.modal.file = {name:file.name, rows:Math.max(0, lines.length-1), headers:(lines[0]||'').split(/[,;\t]/).length}; render(); };
+    rd.readAsText(file); return;
+  }
+  if (!k) return;
+  if (k === 'brand'){ state.brand = e.target.value; state.open = null; render(); }
+  if (k === 'as-user') setUser(USERS.find(u => u.user === e.target.value), state.view);
+  if (k === 'csv-pl'){ state.modal.pl = e.target.value; render(); }
+  if (k === 'piece-status'){ const r = findPiece(currentBrand(), e.target.dataset.id); r.st = e.target.value; render(); toast(`${r.id}: ${r.st}`); }
   if (k === 'task-status'){ const t = TASKS.find(x => x.id === e.target.dataset.id); t.st = e.target.value; render(); }
 });
 document.addEventListener('submit', e => {
   e.preventDefault();
-  if (e.target.id === 'login-form') login($('#lg-user').value, $('#lg-pass').value);
-  if (e.target.id === 'new-user'){
-    const name = $('#nu-name').value.trim(), user = $('#nu-user').value.trim().toLowerCase(), r = $('#nu-role').value, acc = $('#nu-acc').value;
+  const f = e.target.id;
+  if (f === 'login-form') login($('#lg-user').value, $('#lg-pass').value);
+  if (f === 'new-user'){
+    const name = $('#nu-name').value.trim(), user = $('#nu-user').value.trim().toLowerCase(), r = $('#nu-role').value, [kind, val] = $('#nu-acc').value.split(':');
     if (!name || !user){ $('#nu-err').textContent = 'Escribe nombre y usuario.'; return; }
     if (USERS.some(u => u.user === user)){ $('#nu-err').textContent = 'Ese usuario ya existe. Elige otro.'; return; }
     if (r === 'equipo' && USERS.filter(u => u.role !== 'cliente').length >= 5){ $('#nu-err').textContent = 'Ya usas los 5 lugares de equipo.'; return; }
-    USERS.push({user, name, role:r, ini:name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(), accounts: r==='equipo'?'Todas':cname(acc), client:acc});
-    render(); toast(`Usuario «${user}» creado con contraseña temporal.`);
+    const nu = {user, name, role:r, ini:name.split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase()};
+    if (r === 'equipo') nu.accounts = 'Todas';
+    else if (kind === 'client'){ nu.client = val; nu.accounts = CLIENTS.find(c=>c.id===val).name; }
+    else { nu.brands = [val]; nu.accounts = 'Solo ' + bname(val); }
+    USERS.push(nu);
+    state.modal = {type:'reset', user, pass:'Puebla-' + (1000 + Math.floor(Math.random()*9000))}; render(); toast(`Usuario «${user}» creado.`);
+  }
+  if (f === 'f-newtask'){
+    const title = $('#nt-title').value.trim();
+    if (!title){ $('#nt-err').textContent = 'Escribe qué hay que hacer.'; $('#nt-title').focus(); return; }
+    const t = {id:'t'+Date.now(), c:$('#nt-brand').value, title, type:$('#nt-type').value, who:$('#nt-who').value, pts:+$('#nt-pts').value, st:'todo', due:$('#nt-due').value || '2026-11-13'};
+    if ($('#nt-dest').value === 'backlog'){ BACKLOG.unshift({id:'b'+Date.now(), c:t.c, title, type:t.type, pts:t.pts, prio:'Media'}); toast('Agregada al backlog.'); }
+    else { TASKS.push(t); toast('Tarea agregada a «Por hacer».'); }
+    state.modal = null; render();
+  }
+  if (f === 'f-newpiece'){
+    const hook = $('#np-hook').value.trim(), date = $('#np-date').value, pid = $('#np-id').value.trim();
+    if (!hook || !date || !pid){ $('#np-err').textContent = 'Necesitamos al menos ID, fecha y gancho.'; return; }
+    const c = currentBrand(); PARRILLA[c] = PARRILLA[c] || [];
+    PARRILLA[c].push({id:pid, f:date, h:$('#np-hour').value, pilar:$('#np-pilar').value, canal:$('#np-canal').value, fmt:$('#np-fmt').value, hook, guia:$('#np-guia').value, cont:$('#np-cont').value, cap:$('#np-cap').value, pauta:$('#np-pauta').value || 'Por definir', wa:$('#np-wa').value, st:$('#np-st').value, thread:[], nota:''});
+    PARRILLA[c].sort((x,y) => x.f.localeCompare(y.f));
+    state.modal = null; state.open = pid; render(); toast(`${pid} agregada a la parrilla.`);
+  }
+  if (f === 'f-import'){
+    const url = $('#im-url').value.trim();
+    if (!/^https:\/\/docs\.google\.com\/spreadsheets\//.test(url)){ $('#im-err').textContent = 'Pega un enlace de Google Sheets (empieza con https://docs.google.com/spreadsheets/).'; return; }
+    state.modal.url = url; state.modal.step = 2; render();
   }
 });
 render();
